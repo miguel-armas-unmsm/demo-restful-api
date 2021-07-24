@@ -1,0 +1,164 @@
+openapi: 3.0.1
+info:
+  title: API BS Course V1
+  description: Permite consultar los cursos que tiene un grado.
+  version: '1.0'
+servers:
+  - url: apprende/business/v1
+tags:
+  - name: Course
+    description: Course Controller
+paths:
+  /courses:
+    get:
+      tags:
+        - Course
+      summary: Consulta los cursos asociados a un grado.
+      description: " \n### Acerca de la funcionalidad expuesta\n\n
+        \ Permite consultar los cursos que tiene un grado,\n
+        \ mediante el id de grado (grade_id).\n
+
+        ***\n
+
+        \n### Data de Prueba\n
+        \ | Query Param | Desarrollo | Certificación\n
+        \ |------------|------------|---------------|\n
+        \ | gradeId | 5 | 5 |\n
+
+        \n### Precondiciones para el consumo de esta versión de la API\n
+        No aplica.\n
+
+        \n### Usos válidos de Query Parameters\n
+        \ | Resultado Esperado | Path Param | Query Params requeridos | Query Params opcionales \n
+        \ |------------|------------|---------------|---------------|\n
+        \ | Listado de cursos de un grado | no | gradeId | no |\n
+
+        \n### Códigos de error usados en esta versión de la API\n
+        \ | Codigo | HTTP Status | Descripcion |\n
+        \ |--------|-------------|-------------|\n\
+        \ | TL0001 | 400 | Los datos proporcionados no son válidos. |\n
+        \ | TL0002 | 401 | No esta autorizado correctamente para ejecutar esta operacion. |\n
+        \ | TL0003 | 403 | No tienes permiso para ejecutar esta operación. |  \n
+        \ | TL0004 | 500 | Ocurrió un error inesperado. Por favor contactarse con Soporte Técnico.\n
+        \ | TL0005 | 503 | El servicio no esta disponible.   |\n\n"
+
+      operationId: findCourses
+      parameters:
+        - in: query
+          name: gradeId
+          schema:
+            type: integer
+            example: "5"
+          required: true
+          style: form
+          explode: true
+          description: 'Identificador del grado'
+      responses:
+        "200":
+          description: Se obtuvo la informacion solicitada.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CourseResponse'
+        "400":
+          description: El cliente envió datos incorrectos.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiException'
+            application/stream+json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/ApiException'
+        "401":
+          description: 'No esta autorizado correctamente para ejecutar esta operacion.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiException'
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/ApiException'
+        "403":
+          description: 'No tienes permiso para ejecutar esta operación.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiException'
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/ApiException'
+        "500":
+          description: 'Ocurrió un error inesperado. Por favor contactarse con Soporte Técnico.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiException'
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/ApiException'
+        "503":
+          description: 'El servicio no esta disponible.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiException'
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/ApiException'
+components:
+  schemas:
+    ApiException:
+      title: ApiException
+      type: object
+      properties:
+        code:
+          type: string
+          description: 'Codigo de error de Sistema'
+          example: 'TL0001'
+        description:
+          type: string
+          description: 'Descripcion del error de Sistema'
+          example: 'Error al llamar al servicio'
+        errorType:
+          type: string
+          description: 'Tipo de Error de Sistema'
+          example: 'TECHNICAL'
+        properties:
+          type: object
+          properties: {}
+          description: 'Lista de propiedades especiales.'
+      description: 'Datos del error de sistema.'
+    CourseResponse:
+      title: CourseResponse
+      type: array
+      items:
+        $ref: '#/components/schemas/CourseDto'
+    CourseDto:
+      title: CourseDto
+      type: object
+      properties:
+        id:
+          type: integer
+          description: 'Identificador de un curso asociado a un grado.'
+          example: 15
+        gradeId:
+          type: integer
+          description: 'Identificador del grado.'
+          example: 5
+        name:
+          maxLength: 300
+          minLength: 5
+          pattern: ^([.0-9a-zA-ZŸÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÒÓÔÕÖ×ØÙÚÛÜÝàáâãäåæçèéêëìíîïòóôõöùúûüýÿÑñáéíóúÁÉÍÓÚ´‘-]+\s)*[.0-9a-zA-ZŸÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÒÓÔÕÖ×ØÙÚÛÜÝàáâãäåæçèéêëìíîïòóôõöùúûüýÿÑñáéíóúÁÉÍÓÚ‘´-]+$
+          type: string
+          description: 'Nombre del curso asociado a un grado.'
+          example: 'Historia'
+        courseCode:
+          type: string
+          description: 'Código único del curso.'
+          example: 'U2V1Z6'
+        imageResource:
+          maxLength: 400
+          minLength: 5
+          type: string
+          description: 'Ruta de la imagen almacenada en el servidor.'
+          example: 'www.dominioservidor.com/image/course2.png'
