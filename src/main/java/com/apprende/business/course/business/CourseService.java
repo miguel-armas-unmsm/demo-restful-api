@@ -1,7 +1,10 @@
 package com.apprende.business.course.business;
 
 import com.apprende.business.course.model.dto.CourseDto;
+import com.apprende.business.course.util.exception.NotFoundException;
+
 import java.util.List;
+import java.util.Optional;
 
 /**
  * <br/> Interface de tipo Service que contiene los metodos necesarios para
@@ -20,7 +23,9 @@ import java.util.List;
  */
 public interface CourseService {
 
-  List<CourseDto> findByGradeId(Integer gradeId);
   List<CourseDto> findAll();
+  Optional<CourseDto> findById(Integer id);
+  List<CourseDto> findByGradeId(Integer gradeId);
   CourseDto save(CourseDto courseDto);
+  void deleteById(Integer id) throws NotFoundException;
 }

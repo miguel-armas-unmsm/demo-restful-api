@@ -9,6 +9,7 @@ import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
@@ -35,6 +36,19 @@ public class CourseDaoImpl implements CourseDao {
   private final CourseBuilder mapper;
 
   @Override
+  public List<CourseDto> findAll() {
+    return repository.findAll().stream()
+            .map(mapper::builderDto)
+            .collect(Collectors.toList());
+  }
+
+  @Override
+  public Optional<CourseDto> findById(Integer id) {
+    return repository.findById(id)
+            .map(mapper::builderDto);
+  }
+
+  @Override
   public List<CourseDto> findByGradeId(Integer gradeId) {
     return repository.findByGradeId(gradeId)
             .stream()
@@ -43,16 +57,13 @@ public class CourseDaoImpl implements CourseDao {
   }
 
   @Override
-  public List<CourseDto> findAll() {
-    return repository.findAll().stream()
-            .map(mapper::builderDto)
-            .collect(Collectors.toList());
+  public CourseDto save(CourseDto courseDto) {
+    return mapper.builderDto(repository.save(mapper.builderEntity(courseDto)));
   }
 
   @Override
-  public CourseDto save(CourseDto courseDto) {
-    repository.save(mapper.builderEntity(courseDto));
-    return courseDto;
+  public void deleteById(Integer id) {
+    repository.deleteById(id);
   }
 
 }

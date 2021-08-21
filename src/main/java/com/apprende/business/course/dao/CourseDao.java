@@ -2,6 +2,7 @@ package com.apprende.business.course.dao;
 
 import com.apprende.business.course.model.dto.CourseDto;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * <br/> Interface de tipo DAO que contiene los metodos necesarios para
@@ -21,7 +22,9 @@ import java.util.List;
  */
 public interface CourseDao {
 
-  List<CourseDto> findByGradeId(Integer gradeId);
   List<CourseDto> findAll();
+  Optional<CourseDto> findById(Integer id);
+  List<CourseDto> findByGradeId(Integer gradeId);
   CourseDto save(CourseDto courseDto);
+  void deleteById(Integer id);
 }
