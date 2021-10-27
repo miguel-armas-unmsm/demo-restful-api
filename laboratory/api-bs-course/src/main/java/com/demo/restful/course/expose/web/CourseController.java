@@ -35,7 +35,7 @@ public class CourseController {
   private final CourseService service;
 
   @GetMapping(produces = "application/json", value = "/{id}")
-  public ResponseEntity<Optional<CourseDto>> findById(@PathVariable(name = "id") Integer id) {
+  public ResponseEntity<Optional<CourseDto>> findById(@PathVariable(name = "id") Long id) {
     return ResponseEntity.ok(service.findById(id));
   }
 
@@ -63,7 +63,7 @@ public class CourseController {
   }
 
   @DeleteMapping(value = "/{id}")
-  public ResponseEntity<Void> delete(@PathVariable("id") Integer id) {
+  public ResponseEntity<Void> delete(@PathVariable("id") Long id) {
     service.deleteById(id);
     return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
   }

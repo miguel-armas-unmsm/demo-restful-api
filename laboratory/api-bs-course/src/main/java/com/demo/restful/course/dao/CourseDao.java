@@ -24,11 +24,11 @@ public interface CourseDao {
 
   List<CourseDto> findAll();
 
-  Optional<CourseDto> findById(Integer id);
+  Optional<CourseDto> findById(Long id);
 
   List<CourseDto> findByAcademicYear(Integer academicYear);
 
   CourseDto save(CourseDto courseDto);
 
-  void deleteById(Integer id);
+  void deleteById(Long id);
 }

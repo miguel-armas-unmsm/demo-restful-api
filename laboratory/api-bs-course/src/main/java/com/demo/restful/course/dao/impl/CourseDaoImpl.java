@@ -41,7 +41,7 @@ public class CourseDaoImpl implements CourseDao {
   }
 
   @Override
-  public Optional<CourseDto> findById(Integer id) {
+  public Optional<CourseDto> findById(Long id) {
     return repository.findById(id)
         .map(mapper::buildDto);
   }
@@ -60,7 +60,7 @@ public class CourseDaoImpl implements CourseDao {
   }
 
   @Override
-  public void deleteById(Integer id) {
+  public void deleteById(Long id) {
     repository.deleteById(id);
   }
 

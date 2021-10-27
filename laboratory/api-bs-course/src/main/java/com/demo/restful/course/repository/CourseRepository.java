@@ -26,11 +26,11 @@ public interface CourseRepository extends CrudRepository<Course, Long> {
 
   List<Course> findAll();
 
-  Optional<Course> findById(Integer id);
+  Optional<Course> findById(Long id);
 
   List<Course> findByAcademicYear(Integer academicYear);
 
   Course save(Course course);
 
-  void deleteById(Integer id);
+  void deleteById(Long id);
 }

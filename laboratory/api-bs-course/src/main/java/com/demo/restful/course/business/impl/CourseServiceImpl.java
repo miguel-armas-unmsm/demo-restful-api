@@ -36,7 +36,7 @@ public class CourseServiceImpl implements CourseService {
   }
 
   @Override
-  public Optional<CourseDto> findById(Integer id) {
+  public Optional<CourseDto> findById(Long id) {
     return dao.findById(id);
   }
 
@@ -51,7 +51,7 @@ public class CourseServiceImpl implements CourseService {
   }
 
   @Override
-  public void deleteById(Integer id) {
+  public void deleteById(Long id) {
     if (dao.findById(id).isPresent())
       dao.deleteById(id);
   }
