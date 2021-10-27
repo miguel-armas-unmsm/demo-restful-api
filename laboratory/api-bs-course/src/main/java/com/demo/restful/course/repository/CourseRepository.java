@@ -22,13 +22,13 @@ import java.util.Optional;
  * @version 1.0
  */
 @Repository
-public interface CourseRepository extends CrudRepository<Course, Integer> {
+public interface CourseRepository extends CrudRepository<Course, Long> {
 
   List<Course> findAll();
 
   Optional<Course> findById(Integer id);
 
-  List<Course> findByGradeId(Integer gradeId);
+  List<Course> findByAcademicYear(Integer academicYear);
 
   Course save(Course course);
 

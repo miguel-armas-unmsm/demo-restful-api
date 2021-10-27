@@ -31,17 +31,14 @@ public class Course {
   @Id
   @Column(name = "id")
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Integer id;
-
-  @Column(name = "grade_id")
-  private Integer gradeId;
+  private Long id;
 
   @Column(name = "name")
   private String name;
 
-  @Column(name = "course_code")
-  private String courseCode;
+  @Column(name = "academic_year")
+  private Integer academicYear;
 
-  @Column(name = "image_resource")
-  private String imageResource;
+  @Column(name = "credits")
+  private Integer credits;
 }

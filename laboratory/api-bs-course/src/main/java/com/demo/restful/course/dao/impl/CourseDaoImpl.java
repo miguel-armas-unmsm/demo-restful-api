@@ -47,8 +47,8 @@ public class CourseDaoImpl implements CourseDao {
   }
 
   @Override
-  public List<CourseDto> findByGradeId(Integer gradeId) {
-    return repository.findByGradeId(gradeId)
+  public List<CourseDto> findByAcademicYear(Integer academicYear) {
+    return repository.findByAcademicYear(academicYear)
         .stream()
         .map(mapper::buildDto)
         .collect(Collectors.toList());

@@ -40,11 +40,11 @@ public class CourseController {
   }
 
   @GetMapping(produces = "application/json")
-  public ResponseEntity<List<CourseDto>> findByGradeId(@RequestParam(value = "gradeId", required = false) Integer gradeId) {
-    if (gradeId == null)
+  public ResponseEntity<List<CourseDto>> findByAcademicYear(@RequestParam(value = "academicYear", required = false) Integer academicYear) {
+    if (academicYear == null)
       return ResponseEntity.ok(service.findAll());
     else
-      return ResponseEntity.ok(service.findByGradeId(gradeId));
+      return ResponseEntity.ok(service.findByAcademicYear(academicYear));
   }
 
   @PostMapping

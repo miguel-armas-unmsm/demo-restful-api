@@ -1,15 +1,23 @@
--- CREATE TABLE course (
---	id SERIAL,
---	grade_id int,
---	name varchar(40),
---	course_code varchar(20),
---	image_resource varchar(100)
--- );
-
 -- INSERTS
-INSERT INTO course(id, grade_id, name, course_code, image_resource) values (1, 5, 'HISTORY', 'A001', '/directory/image_history.jpg');
-INSERT INTO course(id, grade_id, name, course_code, image_resource) values (2, 5, 'MATH', 'A002', '/directory/image_math.jpg');
-INSERT INTO course(id, grade_id, name, course_code, image_resource) values (3, 3, 'LITERATURE', 'A003', '/directory/image_literature.jpg');
-INSERT INTO course(id, grade_id, name, course_code, image_resource) values (4, 4, 'BIOLOGY', 'A004', '/directory/image_biology.jpg');
+INSERT INTO course(id, name, academic_year, credits) values (1, 'Integración de Sistemas', 10, 3);
+INSERT INTO course(id, name, academic_year, credits) values (2, 'Desarrollo de Aplicaciones Distribuidas', 10, 3);
+INSERT INTO course(id, name, academic_year, credits) values (3, 'Sistemas Distribuidos', 9, 3);
+INSERT INTO course(id, name, academic_year, credits) values (4, 'Taller de construcción de sistemas', 8, 4);
 
+--INSERT INTO unmsm_database.dbo.course (name,academic_year,credits) VALUES
+--	 ('Integración de Sistemas',10,3),
+--	 ('Desarrollo de Aplicaciones Distribuidas',10,3),
+--	 ('Sistemas Distribuidos',9,3),
+--	 ('Taller de construcción de sistemas',8,4),
+--	 ('Desarrollo de Tesis I',9,3);
 
+-- Drop table
+
+-- DROP TABLE unmsm_database.dbo.course GO
+
+--CREATE TABLE unmsm_database.dbo.course (
+--	id int IDENTITY(0,1) NOT NULL,
+--	name varchar(100) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
+--	academic_year int NULL,
+--	credits int NULL
+--) GO

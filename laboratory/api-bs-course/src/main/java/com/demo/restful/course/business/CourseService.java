@@ -26,7 +26,7 @@ public interface CourseService {
 
   Optional<CourseDto> findById(Integer id);
 
-  List<CourseDto> findByGradeId(Integer gradeId);
+  List<CourseDto> findByAcademicYear(Integer academicYear);
 
   CourseDto save(CourseDto courseDto);
 

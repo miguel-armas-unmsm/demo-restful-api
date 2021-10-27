@@ -26,20 +26,19 @@ public class CourseMapper {
 
     return CourseDto.builder()
         .id(course.getId())
-        .gradeId(course.getGradeId())
         .name(course.getName())
-        .courseCode(course.getCourseCode())
-        .imageResource(course.getImageResource())
+        .academicYear(course.getAcademicYear())
+        .credits(course.getCredits())
         .build();
   }
 
   public Course buildEntity(CourseDto course) {
     return Course.builder()
         .id(course.getId())
-        .gradeId(course.getGradeId())
         .name(course.getName())
-        .courseCode(course.getCourseCode())
-        .imageResource(course.getImageResource())
+        .name(course.getName())
+        .academicYear(course.getAcademicYear())
+        .credits(course.getCredits())
         .build();
   }
 }

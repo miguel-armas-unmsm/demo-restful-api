@@ -36,21 +36,16 @@ import lombok.Setter;
 public class CourseDto implements Serializable {
 
   @JsonProperty("id")
-  private Integer id;
-
-  @JsonProperty("gradeId")
-  private Integer gradeId;
+  private Long id;
 
   @JsonProperty("name")
   @Pattern(regexp = ANY_STRING)
   @Size(min = 5, max = 300)
   private String name;
 
-  @JsonProperty("courseCode")
-  @Pattern(regexp = ANY_STRING)
-  @Size(min = 5, max = 300)
-  private String courseCode;
+  @JsonProperty("academicYear")
+  private Integer academicYear;
 
-  @JsonProperty("imageResource")
-  private String imageResource;
+  @JsonProperty("credits")
+  private Integer credits;
 }

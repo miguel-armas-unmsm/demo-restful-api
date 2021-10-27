@@ -41,8 +41,8 @@ public class CourseServiceImpl implements CourseService {
   }
 
   @Override
-  public List<CourseDto> findByGradeId(Integer gradeId) {
-    return dao.findByGradeId(gradeId);
+  public List<CourseDto> findByAcademicYear(Integer academicYear) {
+    return dao.findByAcademicYear(academicYear);
   }
 
   @Override
