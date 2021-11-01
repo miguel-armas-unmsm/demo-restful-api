@@ -1,29 +1,32 @@
 package com.demo.restful.course.dao.impl;
 
+import static com.demo.restful.course.util.mapper.CourseMapper.buildDto;
+import static com.demo.restful.course.util.mapper.CourseMapper.buildEntity;
+
 import com.demo.restful.course.dao.CourseDao;
 import com.demo.restful.course.model.dto.CourseDto;
 import com.demo.restful.course.repository.CourseRepository;
-import com.demo.restful.course.util.mapper.CourseMapper;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
-
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
 
 /**
- * Clase DAO que implementa los métodos necesarios para separar
- * los objetos de acceso a datos de los objetos de negocio del
- * contexto Course.<br/>
+ * <br/>Clase DAO que implementa los métodos necesarios para separar los objetos de acceso a datos
+ * de los objetos de negocio del contexto Course.<br/>
  *
- * <p>Class: CourseDaoImpl.<br/>
+ * <b>Class</b>: CourseDaoImpl<br/>
  *
  * @author Miguel Armas Abt <br/>
- * <u>Developed by</u>: Miguel Armas Abt<br/>
- * <u>Changes</u>:<br/>
- * <ul>
- * <li>Set, 2021 Creación de Clase.</li>
- * </ul>
+ *      <u>Developed by</u>: <br/>
+ *      <ul>
+ *      <li>Miguel Armas Abt</li>
+ *      </ul>
+ *      <u>Changes</u>:<br/>
+ *      <ul>
+ *      <li>Set, 2021 Creación de Clase.</li>
+ *      </ul>
  * @version 1.0
  */
 @RequiredArgsConstructor
@@ -31,32 +34,31 @@ import java.util.stream.Collectors;
 public class CourseDaoImpl implements CourseDao {
 
   private final CourseRepository repository;
-  private final CourseMapper mapper;
 
   @Override
   public List<CourseDto> findAll() {
     return repository.findAll().stream()
-        .map(mapper::buildDto)
+        .map(buildDto)
         .collect(Collectors.toList());
   }
 
   @Override
   public Optional<CourseDto> findById(Long id) {
     return repository.findById(id)
-        .map(mapper::buildDto);
+        .map(buildDto);
   }
 
   @Override
   public List<CourseDto> findByAcademicYear(Integer academicYear) {
     return repository.findByAcademicYear(academicYear)
         .stream()
-        .map(mapper::buildDto)
+        .map(buildDto)
         .collect(Collectors.toList());
   }
 
   @Override
-  public CourseDto save(CourseDto courseDto) {
-    return mapper.buildDto(repository.save(mapper.buildEntity(courseDto)));
+  public Long save(CourseDto courseDto) {
+    return buildDto.apply(repository.save(buildEntity.apply(courseDto))).getId();
   }
 
   @Override

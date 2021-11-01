@@ -1,17 +1,19 @@
 package com.demo.restful.course.util.constant;
 
 /**
- * Clase Constant que define expresiones regulares.
- * <br/>
+ * <br/>Clase Constant que define expresiones regulares.<br/>
  *
- * <p>Class: RegexConstant.<br/>
+ * <b>Constant</b>: RegexConstant<br/>
  *
  * @author Miguel Armas Abt <br/>
- * <u>Developed by</u>: Miguel Armas Abt<br/>
- * <u>Changes</u>:<br/>
- * <ul>
- * <li>Set, 2021 Creación de Clase.</li>
- * </ul>
+ *      <u>Developed by</u>: <br/>
+ *      <ul>
+ *      <li>Miguel Armas Abt</li>
+ *      </ul>
+ *      <u>Changes</u>:<br/>
+ *      <ul>
+ *      <li>Set, 2021 Creación de Clase.</li>
+ *      </ul>
  * @version 1.0
  */
 public class RegexConstant {

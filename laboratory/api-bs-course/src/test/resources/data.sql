@@ -1,8 +1,5 @@
--- INSERTS
 INSERT INTO course(id, name, academic_year, credits) values (1, 'Integración de Sistemas', 10, 3);
-INSERT INTO course(id, name, academic_year, credits) values (2, 'Desarrollo de Aplicaciones Distribuidas', 10, 3);
-INSERT INTO course(id, name, academic_year, credits) values (3, 'Sistemas Distribuidos', 9, 3);
-INSERT INTO course(id, name, academic_year, credits) values (4, 'Taller de construcción de sistemas', 8, 4);
+INSERT INTO course(id, name, academic_year, credits) values (2, 'Sistemas Distribuidos', 9, 3);
 
 --INSERT INTO unmsm_database.dbo.course (name,academic_year,credits) VALUES
 --	 ('Integración de Sistemas',10,3),

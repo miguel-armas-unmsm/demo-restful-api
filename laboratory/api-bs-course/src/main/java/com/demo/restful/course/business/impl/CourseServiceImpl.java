@@ -1,27 +1,30 @@
 package com.demo.restful.course.business.impl;
 
+import static com.demo.restful.course.util.mapper.CourseMapper.buildUpdatedCourse;
+
 import com.demo.restful.course.business.CourseService;
 import com.demo.restful.course.dao.CourseDao;
 import com.demo.restful.course.model.dto.CourseDto;
+import java.util.List;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
-
 /**
- * Clase Service que implementa los métodos necesarios
- * para tramitar la lógica de negocio del
- * contexto Course.<br/>
+ * <br/>Clase Service que implementa los métodos necesarios para tramitar la lógica de negocio
+ * del contexto Course.<br/>
  *
- * <p>Interface: CourseServiceImpl.<br/>
+ * <b>Class</b>: CourseServiceImpl<br/>
  *
  * @author Miguel Armas Abt <br/>
- * <u>Developed by</u>: Miguel Armas Abt<br/>
- * <u>Changes</u>:<br/>
- * <ul>
- * <li>Set, 2021 Creación de Clase.</li>
- * </ul>
+ *      <u>Developed by</u>: <br/>
+ *      <ul>
+ *      <li>Miguel Armas Abt</li>
+ *      </ul>
+ *      <u>Changes</u>:<br/>
+ *      <ul>
+ *      <li>Set, 2021 Creación de Clase.</li>
+ *      </ul>
  * @version 1.0
  */
 @RequiredArgsConstructor
@@ -46,14 +49,23 @@ public class CourseServiceImpl implements CourseService {
   }
 
   @Override
-  public CourseDto save(CourseDto courseDto) {
-    return dao.save(courseDto);
+  public Long save(CourseDto course) {
+    return dao.save(course);
+  }
+
+  @Override
+  public void update(Long id, CourseDto course) {
+    dao.findById(id)
+        .ifPresentOrElse(courseFound -> {
+          buildUpdatedCourse.apply(courseFound, course);
+          dao.save(courseFound);
+        }, () -> {});
   }
 
   @Override
   public void deleteById(Long id) {
-    if (dao.findById(id).isPresent())
-      dao.deleteById(id);
+    Optional.ofNullable(dao.findById(id))
+        .ifPresentOrElse(course -> dao.deleteById(id), () -> {});
   }
 
 }

@@ -1,24 +1,26 @@
 package com.demo.restful.course.repository;
 
 import com.demo.restful.course.model.entity.Course;
+import java.util.List;
+import java.util.Optional;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
-import java.util.Optional;
-
 /**
- * Interface Repository que define los métodos necesarios para acceder
- * a los datos del contexto Course.<br/>
+ * <br/>Interface Repository que define los métodos necesarios para gestionar
+ * los datos del contexto Course.<br/>
  *
- * <p>Interface: CourseRepository.<br/>
+ * <b>Interface</b>: CourseRepository<br/>
  *
  * @author Miguel Armas Abt <br/>
- * <u>Developed by</u>: Miguel Armas Abt<br/>
- * <u>Changes</u>:<br/>
- * <ul>
- * <li>Set, 2021 Creación de Interface.</li>
- * </ul>
+ *      <u>Developed by</u>: <br/>
+ *      <ul>
+ *      <li>Miguel Armas Abt</li>
+ *      </ul>
+ *      <u>Changes</u>:<br/>
+ *      <ul>
+ *      <li>Set, 2021 Creación de Clase.</li>
+ *      </ul>
  * @version 1.0
  */
 @Repository
@@ -26,9 +28,9 @@ public interface CourseRepository extends CrudRepository<Course, Long> {
 
   List<Course> findAll();
 
-  Optional<Course> findById(Long id);
-
   List<Course> findByAcademicYear(Integer academicYear);
+
+  Optional<Course> findById(Long id);
 
   Course save(Course course);
 

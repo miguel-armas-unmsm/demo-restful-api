@@ -7,25 +7,20 @@ spring:
       enabled: true
 
   datasource:
-    url: jdbc:sqlserver://unmsmserver.database.windows.net:1433;databaseName=unmsm_database
-    driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-    platform: mssql
-    username: miguelarmas
-    password: l21m01j16M01L13
-#    url: jdbc:h2:mem:productDB;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
-#    driverClassName: org.h2.Driver
-#    platform: h2
-#    username: sa
-#    password:
+    url: jdbc:h2:mem:productDB;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    driverClassName: org.h2.Driver
+    platform: h2
+    username: sa
+    password:
 
-  # View console logs.
+  # console logs.
   jpa:
     show-sql: true
-#    hibernate:
-#      ddl-auto: update
-#    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: create
+    database-platform: org.hibernate.dialect.H2Dialect
     properties:
       hibernate:
         show_sql: true
         use_sql_comments: false
-        format_sql: false
+        format_sql: true
