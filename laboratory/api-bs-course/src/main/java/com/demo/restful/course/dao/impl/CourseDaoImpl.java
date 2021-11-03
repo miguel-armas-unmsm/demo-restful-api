@@ -1,5 +1,6 @@
 package com.demo.restful.course.dao.impl;
 
+import static com.demo.restful.course.util.exception.ExceptionCatalog.ERROR0001;
 import static com.demo.restful.course.util.mapper.CourseMapper.buildDto;
 import static com.demo.restful.course.util.mapper.CourseMapper.buildEntity;
 
@@ -7,7 +8,6 @@ import com.demo.restful.course.dao.CourseDao;
 import com.demo.restful.course.model.dto.CourseDto;
 import com.demo.restful.course.repository.CourseRepository;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -43,9 +43,10 @@ public class CourseDaoImpl implements CourseDao {
   }
 
   @Override
-  public Optional<CourseDto> findById(Long id) {
+  public CourseDto findById(Long id) {
     return repository.findById(id)
-        .map(buildDto);
+        .map(buildDto)
+        .orElseThrow(ERROR0001::buildException);
   }
 
   @Override

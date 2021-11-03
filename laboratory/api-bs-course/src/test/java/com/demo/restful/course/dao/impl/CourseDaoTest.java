@@ -85,7 +85,7 @@ class CourseDaoTest {
     when(repository.findById(anyLong())).thenReturn(Optional.of(savedCourseOne));
 
     String expected = new Gson().toJson(expectedCourseOne);
-    String actual = new Gson().toJson(dao.findById(1L).get());
+    String actual = new Gson().toJson(dao.findById(1L));
 
     assertEquals(expected, actual);
   }

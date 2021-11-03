@@ -63,10 +63,10 @@ class CourseServiceTest {
 
   @Test
   public void findById() {
-    when(dao.findById(anyLong())).thenReturn(Optional.of(expectedCourseOne));
+    when(dao.findById(anyLong())).thenReturn(expectedCourseOne);
 
     String expected = new Gson().toJson(expectedCourseOne);
-    String actual = new Gson().toJson(service.findById(1L).get());
+    String actual = new Gson().toJson(service.findById(1L));
 
     assertEquals(expected, actual);
   }
@@ -98,7 +98,7 @@ class CourseServiceTest {
   public void update() {
     expectedCourseOne.setId(null);
 
-    when(dao.findById(anyLong())).thenReturn(Optional.of(expectedCourseOne));
+    when(dao.findById(anyLong())).thenReturn(expectedCourseOne);
     service.update(1L, expectedCourseOne);
   }
 

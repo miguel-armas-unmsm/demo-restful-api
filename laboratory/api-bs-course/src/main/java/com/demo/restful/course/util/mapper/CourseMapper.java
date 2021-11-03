@@ -11,7 +11,7 @@ import java.util.function.Function;
  * <br/>Clase Mapper que mueve la información del contexto Course entre objetos
  * de tipo Entity y Dto.<br/>
  *
- * <b>Class</b>: Course<br/>
+ * <b>Class</b>: CourseMapper<br/>
  *
  * @author Miguel Armas Abt <br/>
  *      <u>Developed by</u>: <br/>

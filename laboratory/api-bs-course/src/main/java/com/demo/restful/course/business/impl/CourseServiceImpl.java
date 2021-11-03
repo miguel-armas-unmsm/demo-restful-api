@@ -39,7 +39,7 @@ public class CourseServiceImpl implements CourseService {
   }
 
   @Override
-  public Optional<CourseDto> findById(Long id) {
+  public CourseDto findById(Long id) {
     return dao.findById(id);
   }
 
@@ -55,17 +55,17 @@ public class CourseServiceImpl implements CourseService {
 
   @Override
   public void update(Long id, CourseDto course) {
-    dao.findById(id)
-        .ifPresentOrElse(courseFound -> {
+    Optional.of(dao.findById(id))
+        .ifPresent(courseFound -> {
           buildUpdatedCourse.apply(courseFound, course);
           dao.save(courseFound);
-        }, () -> {});
+        });
   }
 
   @Override
   public void deleteById(Long id) {
-    Optional.ofNullable(dao.findById(id))
-        .ifPresentOrElse(course -> dao.deleteById(id), () -> {});
+    Optional.of(dao.findById(id))
+        .ifPresent(course -> dao.deleteById(id));
   }
 
 }

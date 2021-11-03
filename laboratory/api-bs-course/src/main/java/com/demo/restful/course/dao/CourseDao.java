@@ -2,7 +2,6 @@ package com.demo.restful.course.dao;
 
 import com.demo.restful.course.model.dto.CourseDto;
 import java.util.List;
-import java.util.Optional;
 
 /**
  * <br/>Interface DAO que define los métodos necesarios para separar los objetos de acceso a datos
@@ -25,7 +24,7 @@ public interface CourseDao {
 
   List<CourseDto> findAll();
 
-  Optional<CourseDto> findById(Long id);
+  CourseDto findById(Long id);
 
   List<CourseDto> findByAcademicYear(Integer academicYear);
 

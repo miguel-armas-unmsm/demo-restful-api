@@ -70,7 +70,7 @@ class CourseControllerTest {
 
   @Test
   public void findById() throws Exception {
-    when(service.findById(anyLong())).thenReturn(Optional.of(expectedCourseOne));
+    when(service.findById(anyLong())).thenReturn(expectedCourseOne);
 
     String expected = new Gson().toJson(expectedCourseOne);
 

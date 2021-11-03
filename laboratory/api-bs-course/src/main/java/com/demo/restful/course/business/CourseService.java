@@ -2,7 +2,6 @@ package com.demo.restful.course.business;
 
 import com.demo.restful.course.model.dto.CourseDto;
 import java.util.List;
-import java.util.Optional;
 
 /**
  * <br/>Interface Service que define los métodos necesarios para tramitar la lógica de negocio
@@ -25,7 +24,7 @@ public interface CourseService {
 
   List<CourseDto> findAll();
 
-  Optional<CourseDto> findById(Long id);
+  CourseDto findById(Long id);
 
   List<CourseDto> findByAcademicYear(Integer academicYear);
 

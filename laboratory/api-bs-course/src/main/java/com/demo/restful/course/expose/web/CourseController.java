@@ -44,7 +44,7 @@ public class CourseController {
   private final CourseService service;
 
   @GetMapping(produces = "application/json", value = "/{id}")
-  public ResponseEntity<Optional<CourseDto>> findById(@PathVariable(name = "id") Long id) {
+  public ResponseEntity<CourseDto> findById(@PathVariable(name = "id") Long id) {
 
     return ResponseEntity.ok(service.findById(id));
   }
