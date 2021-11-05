@@ -9,7 +9,7 @@ import java.util.Optional;
 import java.util.function.Function;
 
 /**
- * <br/>Clase Mapper que mueve la información de la excepción.<br/>
+ * <br/>Clase Mapper que mueve la información de la excepción entre objetos.<br/>
  *
  * <b>Class</b>: ApiExceptionMapper<br/>
  *
