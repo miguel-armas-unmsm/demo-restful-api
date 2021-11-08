@@ -39,14 +39,14 @@ public class CourseDto implements Serializable {
   @JsonProperty("id")
   private Long id;
 
-  @JsonProperty("name")
+  @JsonProperty(value = "name", required = true)
   @Pattern(regexp = ANY_STRING)
   @Size(min = 5, max = 300)
   private String name;
 
-  @JsonProperty("academicYear")
+  @JsonProperty(value = "academicYear", required = true)
   private Integer academicYear;
 
-  @JsonProperty("credits")
+  @JsonProperty(value = "credits", required = true)
   private Integer credits;
 }

@@ -7,7 +7,6 @@ import java.util.Map;
 import lombok.Builder;
 import lombok.Getter;
 
-
 /**
  * <br/>Clase Dto que define el modelo de objeto para transmitir información
  * de la excepción personalizada.<br/>

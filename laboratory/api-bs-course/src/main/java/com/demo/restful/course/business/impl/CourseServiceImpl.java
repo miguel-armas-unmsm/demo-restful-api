@@ -7,7 +7,10 @@ import com.demo.restful.course.dao.CourseDao;
 import com.demo.restful.course.model.dto.CourseDto;
 import java.util.List;
 import java.util.Optional;
+
+import com.demo.restful.course.util.exception.impl.model.ApiException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 /**

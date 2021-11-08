@@ -1,9 +1,12 @@
 package com.demo.restful.course.util.exception.impl.model;
 
+import com.demo.restful.course.util.exception.impl.util.builder.ApiExceptionBuilder;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import java.util.List;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Map;
-import lombok.Builder;
+import java.util.Optional;
+import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.http.HttpStatus;
@@ -24,7 +27,6 @@ import org.springframework.http.HttpStatus;
  *      </ul>
  * @version 1.0
  */
-@Builder
 @Getter
 @Setter
 public class ApiException extends RuntimeException {
@@ -47,8 +49,22 @@ public class ApiException extends RuntimeException {
   @JsonProperty("cause")
   private Throwable cause;
 
+  public ApiException(String systemCode, String description, HttpStatus httpStatus,
+                      List<ApiExceptionDetail> exceptionDetails, Map<String, Object> properties,
+                      Throwable cause) {
+
+    super(description, cause);
+    this.systemCode = systemCode;
+    this.description = description;
+    this.httpStatus = httpStatus;
+    this.exceptionDetails = Optional.ofNullable(exceptionDetails)
+        .map(Collections::unmodifiableList)
+        .orElseGet(Collections::emptyList);
+    this.properties = properties;
+  }
+
   /**
-   * Método builder que construye un objeto ApiException base, con los campos obligatorios.
+   * Construye un objeto ApiException básico, con los campos obligatorios.
    *
    * @param systemCode código de error definido para el sistema.
    * @param description descripción del error.
@@ -60,6 +76,18 @@ public class ApiException extends RuntimeException {
         .systemCode(systemCode)
         .description(description)
         .httpStatus(httpStatus);
+  }
+
+  public List<ApiExceptionDetail> getExceptionDetails() {
+    if (this.getCause() instanceof ApiException) {
+      List<ApiExceptionDetail> details = ((ApiException)this.getCause()).getExceptionDetails();
+      List<ApiExceptionDetail> newDetails = new ArrayList<>();
+      newDetails.addAll(this.exceptionDetails);
+      newDetails.addAll(details);
+      return Collections.unmodifiableList(newDetails);
+    } else {
+      return this.exceptionDetails;
+    }
   }
 
 }
