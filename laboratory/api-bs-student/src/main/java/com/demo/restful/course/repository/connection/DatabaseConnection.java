@@ -1,4 +1,4 @@
-package com.demo.jdbc.course.repository.connection;
+package com.demo.restful.course.repository.connection;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

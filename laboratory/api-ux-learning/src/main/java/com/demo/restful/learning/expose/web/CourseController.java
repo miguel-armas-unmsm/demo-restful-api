@@ -24,7 +24,7 @@ import java.util.List;
  */
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("demo/experience/v1/courses")
+@RequestMapping("demo/experience/v1/")
 public class CourseController {
 
   private final CourseService service;
