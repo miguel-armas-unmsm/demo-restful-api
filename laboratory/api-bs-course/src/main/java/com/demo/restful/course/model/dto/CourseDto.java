@@ -4,12 +4,12 @@ import static com.demo.restful.course.util.constant.RegexConstant.ANY_STRING;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.io.Serializable;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
@@ -32,21 +32,20 @@ import lombok.Setter;
 @Builder
 @Setter
 @Getter
-@AllArgsConstructor
-@NoArgsConstructor
 public class CourseDto implements Serializable {
 
   @JsonProperty("id")
   private Long id;
 
-  @JsonProperty(value = "name", required = true)
+  @JsonProperty(value = "name")
   @Pattern(regexp = ANY_STRING)
   @Size(min = 5, max = 300)
   private String name;
 
-  @JsonProperty(value = "academicYear", required = true)
+  @JsonProperty(value = "academicYear")
+  @NotNull(message = "El año académico no puede ser nulo")
   private Integer academicYear;
 
-  @JsonProperty(value = "credits", required = true)
+  @JsonProperty(value = "credits")
   private Integer credits;
 }

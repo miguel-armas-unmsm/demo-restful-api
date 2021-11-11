@@ -31,13 +31,13 @@ import org.springframework.http.HttpStatus;
 @Setter
 public class ApiException extends RuntimeException {
 
-  @JsonProperty(value = "systemCode", required = true)
+  @JsonProperty(value = "systemCode")
   private String systemCode;
 
-  @JsonProperty(value = "description", required = true)
+  @JsonProperty(value = "description")
   private String description;
 
-  @JsonProperty(value = "httpStatus", required = true)
+  @JsonProperty(value = "httpStatus")
   private HttpStatus httpStatus;
 
   @JsonProperty("properties")

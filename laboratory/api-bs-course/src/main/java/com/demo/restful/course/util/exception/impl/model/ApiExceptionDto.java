@@ -28,13 +28,13 @@ import lombok.Getter;
 @Builder
 public class ApiExceptionDto implements Serializable {
 
-  @JsonProperty(value = "systemCode", required = true)
+  @JsonProperty(value = "systemCode")
   private String systemCode;
 
-  @JsonProperty(value = "description", required = true)
+  @JsonProperty(value = "description")
   private String description;
 
-  @JsonProperty(value = "httpStatus", required = true)
+  @JsonProperty(value = "httpStatus")
   private String httpStatus;
 
   @JsonProperty("exceptionDetails")
