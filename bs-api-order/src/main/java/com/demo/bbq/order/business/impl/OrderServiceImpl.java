@@ -1,12 +1,12 @@
 package com.demo.bbq.order.business.impl;
 
-import static com.demo.bbq.order.util.mapper.OrderMapper.buildUpdatedOrder;
-
 import com.demo.bbq.order.dao.OrderDao;
 import com.demo.bbq.order.business.OrderService;
 import com.demo.bbq.order.model.dto.OrderDto;
 import java.util.List;
 import java.util.Optional;
+
+import com.demo.bbq.order.util.mapper.OrderMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -32,6 +32,7 @@ import org.springframework.stereotype.Service;
 public class OrderServiceImpl implements OrderService {
 
   private final OrderDao dao;
+  private final OrderMapper mapper;
 
   @Override
   public List<OrderDto> findAll() {
@@ -50,10 +51,11 @@ public class OrderServiceImpl implements OrderService {
 
   @Override
   public void update(Long id, OrderDto course) {
+    course.setId(id);
     Optional.of(dao.findById(id))
         .ifPresent(courseFound -> {
-          buildUpdatedOrder.apply(courseFound, course);
-          dao.save(courseFound);
+          course.setId(id);
+          dao.save(course);
         });
   }
 

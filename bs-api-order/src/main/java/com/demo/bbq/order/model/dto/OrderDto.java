@@ -48,10 +48,6 @@ public class OrderDto implements Serializable {
   @NotNull(message = "date cannot be null")
   private String date;
 
-  @JsonProperty(value = "isActive")
-  @NotNull(message = "isActive cannot be null")
-  private boolean isActive;
-
   @JsonProperty(value = "menuItemList")
   @NotNull(message = "menuItemList cannot be null")
   private List<MenuItemDto> menuItemList;

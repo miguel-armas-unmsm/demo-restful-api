@@ -3,11 +3,17 @@ package com.demo.bbq.order.dao.impl;
 import static com.demo.bbq.order.util.exception.ExceptionCatalog.ERROR0001;
 
 import com.demo.bbq.order.dao.OrderDao;
+import com.demo.bbq.order.model.dto.MenuItemDto;
 import com.demo.bbq.order.model.dto.OrderDto;
+import com.demo.bbq.order.model.entity.OrderDetail;
+import com.demo.bbq.order.repository.OrderDetailRepository;
 import com.demo.bbq.order.repository.OrderRepository;
+import com.demo.bbq.order.util.mapper.MenuItemMapper;
 import com.demo.bbq.order.util.mapper.OrderMapper;
-
 import java.util.List;
+import java.util.Optional;
+import java.util.function.Function;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -33,30 +39,47 @@ import org.springframework.stereotype.Component;
 @Component
 public class OrderDaoImpl implements OrderDao {
 
-  private final OrderRepository repository;
+  private final OrderRepository orderRepository;
+  private final OrderDetailRepository orderDetailRepository;
+  private final OrderMapper orderMapper;
+  private final MenuItemMapper menuItemMapper;
 
   @Override
   public List<OrderDto> findAll() {
-    return repository.findAll().stream()
-        .map(OrderMapper.buildDto)
+
+    return orderRepository.findAll().stream()
+        .map(orderMapper::toDto)
         .collect(Collectors.toList());
   }
 
   @Override
   public OrderDto findById(Long id) {
-    return repository.findById(id)
-        .map(OrderMapper.buildDto)
-        .orElseThrow(ERROR0001::buildException);
+    return buildOrder.apply(id).get();
   }
 
   @Override
   public Long save(OrderDto orderDto) {
-    return OrderMapper.buildDto.apply(repository.save(OrderMapper.buildEntity.apply(orderDto))).getId();
+    return orderMapper.toDto((orderRepository.save(orderMapper.toEntity(orderDto)))).getId();
   }
 
   @Override
   public void deleteById(Long id) {
-    repository.deleteById(id);
+    orderRepository.deleteById(id);
   }
+
+  private final Function<Long, Optional<OrderDto>> buildOrder = orderId ->
+      orderDetailRepository.findByOrderId(orderId)
+      .stream()
+      .map(orderDetail -> orderRepository.findById(orderDetail.getId().getOrderId())
+          .map(order -> orderMapper.toDtoAll(order, orderDetail)))
+          .filter(Optional::isPresent)
+          .map(Optional::get)
+          .findFirst();
+
+  private final Function<Long, List<MenuItemDto>> buildMenuItemList = orderId ->
+      orderDetailRepository.findByOrderId(orderId)
+      .stream()
+      .map()
+
 
 }

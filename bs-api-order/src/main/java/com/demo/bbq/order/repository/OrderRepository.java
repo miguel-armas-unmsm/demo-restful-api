@@ -3,8 +3,6 @@ package com.demo.bbq.order.repository;
 import com.demo.bbq.order.model.entity.Order;
 import java.util.List;
 import java.util.Optional;
-
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

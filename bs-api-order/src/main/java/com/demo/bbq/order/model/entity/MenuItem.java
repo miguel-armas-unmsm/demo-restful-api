@@ -1,13 +1,12 @@
 package com.demo.bbq.order.model.entity;
 
+import javax.persistence.*;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import javax.persistence.*;
-import java.util.List;
 
 /**
  * <br/>Clase Entity que mapea la tabla menu_item de una base de datos relacional.<br/>
@@ -31,11 +30,11 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "menu_item")
+@Table(name = "menu_items")
 public class MenuItem {
 
   @Id
-  @Column(name = "id")
+  @Column(name = "menu_item_id")
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
@@ -57,7 +56,8 @@ public class MenuItem {
   @Column(name = "is_active")
   private boolean isActive;
 
-  @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "menuItemList")
-  private List<Order> ordersList;
+  @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+  @JoinColumn(name = "menu_item_id", referencedColumnName = "menu_item_id")
+  private List<OrderDetail> orderDetailList;
 
 }

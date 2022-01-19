@@ -86,7 +86,7 @@ public class ApiExceptionBuilder {
     }
 
     return new ApiException(this.systemCode, this.description, this.httpStatus,
-      this.exceptionDetails.stream().collect(Collectors.toUnmodifiableList()), this.properties, this.cause);
+        new ArrayList<>(this.exceptionDetails), this.properties, this.cause);
   }
 
 }

@@ -1,4 +1,4 @@
-package com.demo.bbq.order.model.entity.compositekey;
+package com.demo.bbq.order.model.entity;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -29,8 +29,8 @@ import java.io.Serializable;
 public class OrderMenuItemKey implements Serializable {
 
   @Column(name = "order_id", nullable = false)
-  private Long id;
+  private Long orderId;
 
   @Column(name = "menu_item_id", nullable = false)
-  private Long number;
+  private Long menuItemId;
 }

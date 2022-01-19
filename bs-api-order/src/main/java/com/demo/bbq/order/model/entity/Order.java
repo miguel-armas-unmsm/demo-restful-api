@@ -5,17 +5,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
+
+import javax.persistence.*;
 import java.util.List;
 
 /**
@@ -40,11 +31,11 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "requested_order")
+@Table(name = "orders")
 public class Order {
 
   @Id
-  @Column(name = "id")
+  @Column(name = "order_id")
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
@@ -57,10 +48,8 @@ public class Order {
   @Column(name = "order_date")
   private String date;
 
-  @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-  @JoinTable(name = "order_detail",
-      joinColumns = { @JoinColumn(name = "order_id") },
-      inverseJoinColumns = { @JoinColumn(name = "menu_item_id") })
-  private List<MenuItem> menuItemList;
+  @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+  @JoinColumn(name = "order_id", referencedColumnName = "order_id")
+  private List<OrderDetail> orderDetailList;
 
 }
