@@ -1,7 +1,0 @@
-server:
-  port: 8094
-
-application:
-  client:
-    course:
-      baseurl: http://localhost:8093/demo/business/v1/
