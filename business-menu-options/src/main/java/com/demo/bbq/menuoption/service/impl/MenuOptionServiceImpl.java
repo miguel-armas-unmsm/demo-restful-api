@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import com.demo.bbq.menuoption.util.exception.ExceptionCatalog;
 import com.demo.bbq.menuoption.util.mapper.MenuOptionMapper;
 import com.demo.bbq.menuoption.util.model.dto.request.MenuOptionRequest;
 import com.demo.bbq.menuoption.util.model.dto.response.MenuOptionResponse;
@@ -52,7 +53,7 @@ public class MenuOptionServiceImpl implements MenuOptionService {
   public MenuOptionResponse findById(Long id) {
     return menuOptionRepository.findById(id)
         .map(menuOptionMapper::fromEntityToResponse)
-        .orElseThrow();
+        .orElseThrow(ExceptionCatalog.ERROR0001::buildException);
   }
 
   @Override

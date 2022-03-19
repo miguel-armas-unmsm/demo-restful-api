@@ -2,7 +2,7 @@ package com.demo.bbq.menuoption.util.exception.impl.expose.web;
 
 import com.demo.bbq.menuoption.util.exception.impl.model.ApiException;
 import com.demo.bbq.menuoption.util.exception.impl.util.mapper.ApiExceptionMapper;
-import com.demo.bbq.menuoption.util.exception.impl.model.ApiExceptionDto;
+import com.demo.bbq.menuoption.util.exception.impl.model.ApiExceptionResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -13,7 +13,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 public class ApiExceptionController extends ResponseEntityExceptionHandler {
 
   @ExceptionHandler(ApiException.class)
-  public final ResponseEntity<ApiExceptionDto> sendException(ApiException exception, WebRequest request) {
+  public final ResponseEntity<ApiExceptionResponse> sendException(ApiException exception, WebRequest request) {
     return new ResponseEntity<>(ApiExceptionMapper.buildApiExceptionResponse.apply(exception), exception.getHttpStatus());
   }
 }

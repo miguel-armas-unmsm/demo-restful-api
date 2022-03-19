@@ -1,11 +1,7 @@
 package com.demo.bbq.menuoption.util.exception.impl.util.mapper;
 
 import com.demo.bbq.menuoption.util.exception.impl.model.ApiException;
-import com.demo.bbq.menuoption.util.exception.impl.model.ApiExceptionDetail;
-import com.demo.bbq.menuoption.util.exception.impl.model.ApiExceptionDto;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import com.demo.bbq.menuoption.util.exception.impl.model.ApiExceptionResponse;
 import java.util.function.Function;
 
 /**
@@ -26,13 +22,12 @@ import java.util.function.Function;
  */
 public class ApiExceptionMapper {
 
-  private static final Function<List<ApiExceptionDetail>, List<ApiExceptionDetail>> buildDetails = details ->
-      Optional.ofNullable(details).orElseGet(Collections::emptyList);
-
-  public static Function<ApiException, ApiExceptionDto> buildApiExceptionResponse = ex ->
-      ApiExceptionDto.builder(ex.getSystemCode(), ex.getDescription(), ex.getHttpStatus().toString())
-          .properties(ex.getProperties())
-          .exceptionDetails(buildDetails.apply(ex.getExceptionDetails()))
+  public static Function<ApiException, ApiExceptionResponse> buildApiExceptionResponse = ex ->
+      ApiExceptionResponse
+          .builder(
+              ex.getSystemCode(),
+              ex.getDescription(),
+              ex.getHttpStatus().toString())
           .build();
 
 }

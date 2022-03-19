@@ -1,9 +1,6 @@
 package com.demo.bbq.menuoption.util.exception.impl.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import java.io.Serializable;
-import java.util.List;
-import java.util.Map;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -26,22 +23,13 @@ import lombok.Getter;
  */
 @Getter
 @Builder
-public class ApiExceptionDto implements Serializable {
+public class ApiExceptionResponse implements Serializable {
 
-  @JsonProperty(value = "systemCode")
   private String systemCode;
 
-  @JsonProperty(value = "description")
   private String description;
 
-  @JsonProperty(value = "httpStatus")
   private String httpStatus;
-
-  @JsonProperty("exceptionDetails")
-  private List<ApiExceptionDetail> exceptionDetails;
-
-  @JsonProperty("properties")
-  private Map<String, Object> properties;
 
   /**
    * Método builder que construye un objeto ApiExceptionDto base, con los campos obligatorios.
@@ -51,8 +39,8 @@ public class ApiExceptionDto implements Serializable {
    * @param httpStatus código de estado HTTP.
    * @return ApiExceptionDtoBuilder
    */
-  public static ApiExceptionDtoBuilder builder(String systemCode, String description, String httpStatus) {
-    return new ApiExceptionDtoBuilder()
+  public static ApiExceptionResponseBuilder builder(String systemCode, String description, String httpStatus) {
+    return new ApiExceptionResponseBuilder()
         .systemCode(systemCode)
         .description(description)
         .httpStatus(httpStatus);

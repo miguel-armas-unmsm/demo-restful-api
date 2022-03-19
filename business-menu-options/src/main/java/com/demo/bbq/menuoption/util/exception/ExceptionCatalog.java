@@ -1,6 +1,5 @@
 package com.demo.bbq.menuoption.util.exception;
 
-import com.demo.bbq.menuoption.util.constant.MessageConstant;
 import com.demo.bbq.menuoption.util.exception.impl.model.ApiException;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -10,7 +9,7 @@ import org.springframework.http.HttpStatus;
 @Getter
 public enum ExceptionCatalog {
 
-  ERROR0001(MessageConstant.NO_RECORDS_FOUND, HttpStatus.NOT_FOUND);
+  ERROR0001("No se encontró la opción de menú solicitada.", HttpStatus.NOT_FOUND);
 
   private final String description;
   private final HttpStatus httpStatus;
@@ -18,14 +17,11 @@ public enum ExceptionCatalog {
   public ApiException buildException(Throwable cause) {
     return (cause instanceof ApiException)
         ? (ApiException) cause
-        : ApiException.builder(this.name(), this.getDescription(), this.getHttpStatus())
-        .cause(cause)
-        .build();
+        : new ApiException(this.name(), this.getDescription(), this.getHttpStatus(), cause);
   }
 
   public ApiException buildException() {
-    return ApiException.builder(this.name(), this.getDescription(), this.getHttpStatus())
-        .build();
+    return new ApiException(this.name(), this.getDescription(), this.getHttpStatus(), new Throwable());
   }
 
 }

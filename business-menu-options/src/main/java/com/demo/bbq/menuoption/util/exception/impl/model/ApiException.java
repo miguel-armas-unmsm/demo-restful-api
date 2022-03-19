@@ -1,12 +1,5 @@
 package com.demo.bbq.menuoption.util.exception.impl.model;
 
-import com.demo.bbq.menuoption.util.exception.impl.util.builder.ApiExceptionBuilder;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Map;
-import java.util.Optional;
-import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.http.HttpStatus;
@@ -31,63 +24,19 @@ import org.springframework.http.HttpStatus;
 @Setter
 public class ApiException extends RuntimeException {
 
-  @JsonProperty(value = "systemCode")
   private String systemCode;
 
-  @JsonProperty(value = "description")
   private String description;
 
-  @JsonProperty(value = "httpStatus")
   private HttpStatus httpStatus;
 
-  @JsonProperty("properties")
-  private Map<String, Object> properties;
-
-  @JsonProperty("exceptionDetails")
-  private List<ApiExceptionDetail> exceptionDetails;
-
-  @JsonProperty("cause")
   private Throwable cause;
 
-  public ApiException(String systemCode, String description, HttpStatus httpStatus,
-                      List<ApiExceptionDetail> exceptionDetails, Map<String, Object> properties,
-                      Throwable cause) {
-
+  public ApiException(String systemCode, String description, HttpStatus httpStatus, Throwable cause) {
     super(description, cause);
     this.systemCode = systemCode;
     this.description = description;
     this.httpStatus = httpStatus;
-    this.exceptionDetails = Optional.ofNullable(exceptionDetails)
-        .map(Collections::unmodifiableList)
-        .orElseGet(Collections::emptyList);
-    this.properties = properties;
-  }
-
-  /**
-   * Construye un objeto ApiException básico, con los campos obligatorios.
-   *
-   * @param systemCode código de error definido para el sistema.
-   * @param description descripción del error.
-   * @param httpStatus código de estado HTTP.
-   * @return ApiExceptionBuilder
-   */
-  public static ApiExceptionBuilder builder(String systemCode, String description, HttpStatus httpStatus) {
-    return new ApiExceptionBuilder()
-        .systemCode(systemCode)
-        .description(description)
-        .httpStatus(httpStatus);
-  }
-
-  public List<ApiExceptionDetail> getExceptionDetails() {
-    if (this.getCause() instanceof ApiException) {
-      List<ApiExceptionDetail> details = ((ApiException)this.getCause()).getExceptionDetails();
-      List<ApiExceptionDetail> newDetails = new ArrayList<>();
-      newDetails.addAll(this.exceptionDetails);
-      newDetails.addAll(details);
-      return Collections.unmodifiableList(newDetails);
-    } else {
-      return this.exceptionDetails;
-    }
   }
 
 }
