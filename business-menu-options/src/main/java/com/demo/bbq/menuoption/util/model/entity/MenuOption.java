@@ -49,6 +49,6 @@ public class MenuOption {
   private BigDecimal price;
 
   @Column(name = "is_active")
-  private boolean isActive;
+  private boolean active;
 
 }

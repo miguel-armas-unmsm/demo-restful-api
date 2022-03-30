@@ -37,6 +37,6 @@ public class MenuOptionResponse implements Serializable {
 
   private BigDecimal price;
 
-  private boolean isActive;
+  private boolean active;
 
 }
