@@ -1,6 +1,9 @@
 package com.demo.bbq.menuoption.util.exception.impl.model;
 
 import java.io.Serializable;
+import java.util.Collections;
+import java.util.List;
+
 import lombok.Builder;
 import lombok.Getter;
 
@@ -31,6 +34,8 @@ public class ApiExceptionResponse implements Serializable {
 
   private String httpStatus;
 
+  private List<String> additionalDetails;
+
   /**
    * Método builder que construye un objeto ApiExceptionDto base, con los campos obligatorios.
    *
@@ -43,7 +48,8 @@ public class ApiExceptionResponse implements Serializable {
     return new ApiExceptionResponseBuilder()
         .systemCode(systemCode)
         .description(description)
-        .httpStatus(httpStatus);
+        .httpStatus(httpStatus)
+        .additionalDetails(Collections.emptyList());
   }
 
 }

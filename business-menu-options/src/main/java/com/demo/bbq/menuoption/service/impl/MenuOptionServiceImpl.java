@@ -1,18 +1,20 @@
 package com.demo.bbq.menuoption.service.impl;
 
+import static com.demo.bbq.menuoption.util.logstash.Markers.SENSITIVE_JSON;
+
 import com.demo.bbq.menuoption.service.MenuOptionService;
 import com.demo.bbq.menuoption.repository.MenuOptionRepository;
-
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-
 import com.demo.bbq.menuoption.util.exception.ExceptionCatalog;
 import com.demo.bbq.menuoption.util.mapper.MenuOptionMapper;
 import com.demo.bbq.menuoption.util.model.dto.request.MenuOptionRequest;
 import com.demo.bbq.menuoption.util.model.dto.response.MenuOptionResponse;
 import com.demo.bbq.menuoption.util.model.entity.MenuOption;
+import com.google.gson.Gson;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 /**
@@ -32,6 +34,7 @@ import org.springframework.stereotype.Component;
  *      </ul>
  * @version 1.0
  */
+@Slf4j
 @RequiredArgsConstructor
 @Component
 public class MenuOptionServiceImpl implements MenuOptionService {
@@ -46,6 +49,7 @@ public class MenuOptionServiceImpl implements MenuOptionService {
           : menuOptionRepository.findByCategory(name))
         .stream()
         .map(menuOptionMapper::fromEntityToResponse)
+        .peek(menuOption -> log.info(SENSITIVE_JSON, "findByCategory: {}", new Gson().toJson(menuOption)))
         .collect(Collectors.toList());
   }
 
@@ -73,7 +77,8 @@ public class MenuOptionServiceImpl implements MenuOptionService {
 
   @Override
   public void deleteById(Long id) {
-    menuOptionRepository.deleteById(id);
+    Optional.of(this.findById(id))
+        .ifPresentOrElse(menuOptionFound -> menuOptionRepository.deleteById(id), () -> {});
   }
 
 }
