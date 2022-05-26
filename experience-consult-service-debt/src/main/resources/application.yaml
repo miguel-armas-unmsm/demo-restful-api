@@ -1,0 +1,21 @@
+server:
+  port: 9090
+
+application:
+  http-client:
+    service-providers:
+      base-url: http://localhost:8090/demo/pay/business/v1/
+    provided-services:
+      base-url: http://localhost:8091/demo/pay/business/v1/
+    service-bills:
+      base-url: http://localhost:8092/demo/pay/business/v1/
+    account-holders:
+      base-url: http://localhost:8093/demo/pay/business/v1/
+
+spring:
+  cache:
+    type: redis
+  redis:
+    host: localhost
+    port: 6379
+    ssl: false

@@ -1,0 +1,281 @@
+{
+	"info": {
+		"_postman_id": "9d2eac80-1548-4945-bd29-d92ed9211685",
+		"name": "Consult Service Debt",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Business",
+			"item": [
+				{
+					"name": "BS Service Providers",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/stream+json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8090/demo/pay/business/v1/service-providers",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"demo",
+								"pay",
+								"business",
+								"v1",
+								"service-providers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "BS Provided Services",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/stream+json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8091/demo/pay/business/v1/provided-services?serviceProviderId=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8091",
+							"path": [
+								"demo",
+								"pay",
+								"business",
+								"v1",
+								"provided-services"
+							],
+							"query": [
+								{
+									"key": "serviceProviderId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "BS Service Bills",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/stream+json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8092/demo/pay/business/v1/service-bills?providedServiceId=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8092",
+							"path": [
+								"demo",
+								"pay",
+								"business",
+								"v1",
+								"service-bills"
+							],
+							"query": [
+								{
+									"key": "providedServiceId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "BS Account Holders",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/stream+json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8093/demo/pay/business/v1/account-holders/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8093",
+							"path": [
+								"demo",
+								"pay",
+								"business",
+								"v1",
+								"account-holders",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Experience",
+			"item": [
+				{
+					"name": "UX Service Bills",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/stream+json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:9090/demo/pay/experience/v1/consult-service-debt/service-bills?providedServiceId=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"demo",
+								"pay",
+								"experience",
+								"v1",
+								"consult-service-debt",
+								"service-bills"
+							],
+							"query": [
+								{
+									"key": "providedServiceId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UX Account Holders",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/stream+json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:9090/demo/pay/experience/v1/consult-service-debt/account-holders/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"demo",
+								"pay",
+								"experience",
+								"v1",
+								"consult-service-debt",
+								"account-holders",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UX Provided Services",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/stream+json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:9090/demo/pay/experience/v1/consult-service-debt/provided-services?serviceProviderId=2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"demo",
+								"pay",
+								"experience",
+								"v1",
+								"consult-service-debt",
+								"provided-services"
+							],
+							"query": [
+								{
+									"key": "serviceProviderId",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UX Service Providers",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/stream+json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:9090/demo/pay/experience/v1/consult-service-debt/service-providers",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"demo",
+								"pay",
+								"experience",
+								"v1",
+								"consult-service-debt",
+								"service-providers"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
