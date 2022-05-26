@@ -1,0 +1,84 @@
+{
+	"info": {
+		"_postman_id": "680283bc-5ded-4eab-a825-ce6304a82b88",
+		"name": "Menu Purchase",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "BS Menu Options",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Chancho al cilindro\",\r\n    \"category\": \"food\",\r\n    \"price\": 30.00,\r\n    \"active\": true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8093/bbq/business/v1/menu-options",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8093",
+					"path": [
+						"bbq",
+						"business",
+						"v1",
+						"menu-options"
+					],
+					"query": [
+						{
+							"key": "category",
+							"value": "drink",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UX Menu Purchase",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Pollo frito\",\r\n    \"category\": \"food\",\r\n    \"price\": 6.00,\r\n    \"active\": true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8094/bbq/experience/v1/menu-options",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8094",
+					"path": [
+						"bbq",
+						"experience",
+						"v1",
+						"menu-options"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
