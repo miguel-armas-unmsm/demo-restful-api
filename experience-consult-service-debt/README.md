@@ -22,6 +22,7 @@
 * Java 11
 * Maven 3.8.1
 * Habilitar plugin de Lombok
+* Habilitar el servicio de Redis
 * Docker
 
 ##Pruebas unitarias
