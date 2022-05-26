@@ -1,4 +1,4 @@
-package com.demo.bbq.menupurchase.menuoption.web;
+package com.demo.bbq.menupurchase.menuoption.expose.web;
 
 import java.net.URI;
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.demo.bbq.menuoption.util.logstash;
+package com.demo.bbq.global.logstash;
 
 import org.slf4j.Marker;
 

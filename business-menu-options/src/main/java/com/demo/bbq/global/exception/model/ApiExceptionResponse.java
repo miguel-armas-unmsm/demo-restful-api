@@ -1,4 +1,4 @@
-package com.demo.bbq.menuoption.util.exception.impl.model;
+package com.demo.bbq.global.exception.model;
 
 import java.io.Serializable;
 import java.util.Collections;

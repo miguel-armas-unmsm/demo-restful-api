@@ -1,12 +1,12 @@
 package com.demo.bbq.menuoption.util.exception;
 
-import com.demo.bbq.menuoption.util.exception.impl.model.ApiException;
+import com.demo.bbq.global.exception.model.ApiException;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 
-import static com.demo.bbq.menuoption.util.logstash.Markers.SENSITIVE_TEXT;
+import static com.demo.bbq.global.logstash.Markers.SENSITIVE_TEXT;
 
 @Slf4j
 @AllArgsConstructor

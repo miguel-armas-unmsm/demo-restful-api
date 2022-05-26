@@ -1,6 +1,6 @@
 package com.demo.bbq.menuoption.service.impl;
 
-import static com.demo.bbq.menuoption.util.logstash.Markers.SENSITIVE_JSON;
+import static com.demo.bbq.global.logstash.Markers.SENSITIVE_JSON;
 
 import com.demo.bbq.menuoption.service.MenuOptionService;
 import com.demo.bbq.menuoption.repository.MenuOptionRepository;

@@ -1,6 +1,6 @@
 package com.demo.bbq.menupurchase.menuoption.util.model.dto.request;
 
-import com.demo.bbq.menupurchase.util.constant.RegexConstant;
+import com.demo.bbq.global.constant.RegexConstant;
 import lombok.*;
 
 import javax.validation.constraints.NotNull;

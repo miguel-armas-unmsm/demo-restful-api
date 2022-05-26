@@ -1,4 +1,4 @@
-package com.demo.bbq.menupurchase.util.constant;
+package com.demo.bbq.global.constant;
 
 /**
  * <br/>Clase Constant que define expresiones regulares.<br/>
@@ -17,6 +17,8 @@ package com.demo.bbq.menupurchase.util.constant;
  * @version 1.0
  */
 public class RegexConstant {
+
+  private RegexConstant() {}
 
   public static final String ANY_STRING = "^([.0-9a-zA-ZŸÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÒÓÔÕÖ×ØÙÚÛÜÝàáâãäåæçèéêëìíîïòóôõöùúûüýÿÑñáéíóúÁÉÍÓÚ´‘-]+\\s)*[.0-9a-zA-ZŸÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÒÓÔÕÖ×ØÙÚÛÜÝàáâãäåæçèéêëìíîïòóôõöùúûüýÿÑñáéíóúÁÉÍÓÚ‘´-]+$";
 

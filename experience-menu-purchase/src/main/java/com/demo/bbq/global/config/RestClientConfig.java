@@ -1,4 +1,4 @@
-package com.demo.bbq.menupurchase.util.config;
+package com.demo.bbq.global.config;
 
 import com.demo.bbq.menupurchase.menuoption.repository.proxy.MenuOptionProxy;
 import okhttp3.OkHttpClient;

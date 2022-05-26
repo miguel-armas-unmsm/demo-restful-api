@@ -1,7 +1,7 @@
-package com.demo.bbq.menuoption.util.exception.impl.expose.web;
+package com.demo.bbq.global.exception.web;
 
-import com.demo.bbq.menuoption.util.exception.impl.model.ApiException;
-import com.demo.bbq.menuoption.util.exception.impl.model.ApiExceptionResponse;
+import com.demo.bbq.global.exception.model.ApiException;
+import com.demo.bbq.global.exception.model.ApiExceptionResponse;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
