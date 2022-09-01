@@ -1,7 +1,7 @@
-### Business API Menu Options
-`<repositorio>` : <https://github.com/miguel-armas-unmsm/demo-restful-api/tree/crud/business-menu-options>
+# Business API Menu Options
+`autor`: Miguel Rodrigo Armas Abt
 
-`<autor>`: Miguel Rodrigo Armas Abt
+`documentación` : <http://localhost:8093/swagger/swagger-ui/index.html>
 
 ##Acerca de la funcionalidad
 | Endpoint | Método | Descripción
@@ -15,11 +15,7 @@
 ##Fuente de datos
 > Se accede a la tabla menu_options
 
-##Prerrequisitos para instalación y despliegue
-* Java 11
-* Maven 3.8.1
-* Habilitar plugin de Lombok
-* Docker
+`base de datos en memoria` : <http://localhost:8090/h2-console/>
 
 ##Pruebas unitarias
 > Aplica.

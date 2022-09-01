@@ -24,3 +24,8 @@ spring:
         show_sql: true
         use_sql_comments: false
         format_sql: true
+
+springdoc:
+  swagger-ui:
+    path: /swagger/index.html
+    enabled: true

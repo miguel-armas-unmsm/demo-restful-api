@@ -1,7 +1,7 @@
-### Experience API Menu Purchase
-`<repositorio>` : <https://github.com/miguel-armas-unmsm/demo-restful-api/tree/crud/experience-menu-purchase>
-
+# Experience API Consult Menu Options
 `<autor>`: Miguel Rodrigo Armas Abt
+
+`documentación` : <http://localhost:8094/swagger/swagger-ui/index.html>
 
 ##Acerca de la funcionalidad
 | Endpoint | Método | Descripción
@@ -13,13 +13,7 @@
 | `/bbq/business/v1/menu-options/{id}`| DELETE | Elimina un registro de opción de menú.|
 
 ##Fuente de datos
-> Se comunica con la API business-menu-options
-
-##Prerrequisitos para instalación y despliegue
-* Java 11
-* Maven 3.8.1
-* Habilitar plugin de Lombok
-* Docker
+> Se comunica con el cliente http business-menu-options
 
 ##Pruebas unitarias
-> No aplica.
+> Aplica.

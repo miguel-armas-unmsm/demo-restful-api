@@ -5,3 +5,8 @@ application:
   http-client:
     menu-options:
       base-url: http://localhost:8093/bbq/business/v1/
+
+springdoc:
+  swagger-ui:
+    path: /swagger/index.html
+    enabled: true
