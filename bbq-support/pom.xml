@@ -4,8 +4,8 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
-		<groupId>com.demo.bbq.business</groupId>
-		<artifactId>business-application-common</artifactId>
+		<groupId>com.demo.bbq.support</groupId>
+		<artifactId>support-application-common</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 
@@ -13,17 +13,9 @@
 		<endorsed.dir>${project.build.directory}</endorsed.dir>
 	</properties>
 
-	<artifactId>business-menu-options</artifactId>
+	<artifactId>bbq-support</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>BS API Menu Options</name>
-	<description>BS API Menu Options</description>
-
-	<dependencies>
-		<dependency>
-			<groupId>com.demo.bbq.support</groupId>
-			<artifactId>bbq-support</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
-	</dependencies>
+	<name>BBQ Support</name>
+	<description>BBQ Support</description>
 
 </project>
