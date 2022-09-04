@@ -1,0 +1,48 @@
+springdoc:
+  swagger-ui:
+    path: /swagger/index.html
+    enabled: true
+
+management: #monitor by actuator
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+spring:
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    properties:
+      hibernate:
+        show_sql: true
+        use_sql_comments: false
+        format_sql: true
+
+# MYSQL
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/db_menu_purchase?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+    driverClassName: com.mysql.cj.jdbc.Driver
+    username: root
+    password: oracle12c
+
+# H2
+#  h2:
+#    console:
+#      enabled: true
+#  datasource:
+#    url: jdbc:h2:mem:unmsmdatabase;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+#    driverClassName: org.h2.Driver
+#    platform: h2
+#    username: sa
+#    password:
+
+# SQL SERVER
+#  datasource:
+#    url: jdbc:sqlserver://unmsmserver.database.windows.net:1433;databaseName=unmsmdatabase
+#    driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+#    platform: mssql
+#    username: miguelarmas
+#    password: l21m01j16M01L13

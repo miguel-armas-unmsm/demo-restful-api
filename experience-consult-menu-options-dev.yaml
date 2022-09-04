@@ -3,15 +3,13 @@ springdoc:
     path: /swagger/index.html
     enabled: true
 
-eureka:
-  client:
-    serviceUrl:
-      defaultZone: ${EUREKA_SERVER:http://localhost:8761/eureka}
-
 management:
   endpoints:
     web:
       exposure:
         include: "*"
 
-author: Miguel Armas Abt
+application:
+  http-client:
+    menu-options:
+      base-url: http://localhost:8093/bbq/business/v1/
