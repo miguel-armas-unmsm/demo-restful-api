@@ -1,7 +1,0 @@
-{
-    "/demo/business/v1/*": {
-        "target": "http://localhost:8093",
-        "secure": false,
-        "logLevel": "debug"
-    }
-}
