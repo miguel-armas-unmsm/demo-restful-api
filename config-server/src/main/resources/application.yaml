@@ -8,15 +8,18 @@ spring:
   cloud:
     config:
       server:
+        absolute-path: C:\\\\Users\\\\Miguel\\\\dev\\\\demo-restful-api-config-server\\\\
         git:
-          uri: ${LOCAL_REPOSITORY:C:\\\\Users\\\\Miguel\\\\dev\\\\demo-restful-api\\\\config-server-repo\\\\}
+          uri: ${LOCAL_REPOSITORY:${spring.cloud.config.server.absolute-path}}
           clone-on-start: true
-          default-label: feature/crud-menu-options
-          # C:\Users\Miguel\dev\demo-restful-api\bbq-properties
+          default-label: config-server-repo # branch name
+        native:
+          searchLocations: ${LOCAL_REPOSITORY:${spring.cloud.config.server.absolute-path}}
+
   security:
     user:
       name: admin
-      password: qwerty
+      password: 123
 
   profiles:
     active: native

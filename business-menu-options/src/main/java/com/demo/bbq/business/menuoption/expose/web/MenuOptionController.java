@@ -8,6 +8,7 @@ import com.demo.bbq.business.menuoption.service.MenuOptionService;
 import com.demo.bbq.business.menuoption.util.model.dto.request.MenuOptionRequest;
 import com.demo.bbq.business.menuoption.util.model.dto.response.MenuOptionResponse;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,6 +38,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
  *      </ul>
  * @version 1.0
  */
+@Slf4j
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/bbq/business/v1/menu-options")

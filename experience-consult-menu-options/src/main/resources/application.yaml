@@ -1,28 +1,11 @@
 server:
   port: 8094
 
-spring:
-
-  application:
-    name: experience-consult-menu-options
-
-application:
-  http-client:
-    menu-options:
-      base-url: http://localhost:8093/bbq/business/v1/
-
-springdoc:
-  swagger-ui:
-    path: /swagger/index.html
-    enabled: true
-
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://localhost:8761/eureka
+      defaultZone: ${EUREKA_SERVER:http://localhost:8761/eureka}
 
-management:
-  endpoints:
-    web:
-      exposure:
-        include: "*"
+spring:
+  application:
+    name: experience-consult-menu-options

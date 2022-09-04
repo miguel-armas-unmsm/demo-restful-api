@@ -1,0 +1,15 @@
+spring:
+  cloud:
+    config:
+      discovery:
+        enabled: true
+        service-id: config-server
+      failFast: true
+      name: business #name of base properties config file, before profile
+      profile: menu-options-dev #name of file
+      #label: latest
+      username: admin
+      password: 123
+      retry:
+        max-attempts: 1
+        max-interval: 1000
