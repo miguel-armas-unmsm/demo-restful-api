@@ -3,7 +3,7 @@
 
 `documentación` : <http://localhost:8093/swagger/swagger-ui/index.html>
 
-##Acerca de la funcionalidad
+## Acerca de la funcionalidad
 | Endpoint | Método | Descripción
 | ------------- | ------------------------------ |---------- |
 | `/bbq/business/v1/menu-options?category={category}`| GET | Recupera todas las opciones de menú, filtrados por categoría si se envía el query param category.|
@@ -12,10 +12,10 @@
 | `/bbq/business/v1/menu-options/{id}`| PUT | Actualiza un registro de opción de menú.|
 | `/bbq/business/v1/menu-options/{id}`| DELETE | Elimina un registro de opción de menú.|
 
-##Fuente de datos
+## Fuente de datos
 > Se accede a la tabla menu_options
 
 `base de datos en memoria` : <http://localhost:8090/h2-console/>
 
-##Pruebas unitarias
+## Pruebas unitarias
 > Aplica.

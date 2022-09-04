@@ -49,6 +49,11 @@
       <artifactId>spring-boot-starter-web</artifactId>
     </dependency>
 
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-actuator</artifactId>
+    </dependency>
+
     <!-- test -->
     <dependency>
       <groupId>org.junit.platform</groupId>
@@ -81,14 +86,14 @@
     <plugins>
       <!--This plugin generate reports in two differents forma .txt and xml
       in test phase when build life cicle is execuite-->
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-surefire-plugin</artifactId>
-        <version>3.0.0-M5</version>
-        <configuration>
-          <useSystemClassLoader>false</useSystemClassLoader>
-        </configuration>
-      </plugin>
+<!--      <plugin>-->
+<!--        <groupId>org.apache.maven.plugins</groupId>-->
+<!--        <artifactId>maven-surefire-plugin</artifactId>-->
+<!--        <version>3.0.0-M5</version>-->
+<!--        <configuration>-->
+<!--          <useSystemClassLoader>false</useSystemClassLoader>-->
+<!--        </configuration>-->
+<!--      </plugin>-->
 
 
       <!--<plugin>
@@ -114,21 +119,21 @@
             </configuration>
         </plugin>-->
 
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-site-plugin</artifactId>
-        <version>3.9.1</version>
-        <configuration>
-          <locales>en,fr,es</locales>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-javadoc-plugin</artifactId>
-        <version>3.2.0</version>
-        <configuration>
-        </configuration>
-      </plugin>
+<!--      <plugin>-->
+<!--        <groupId>org.apache.maven.plugins</groupId>-->
+<!--        <artifactId>maven-site-plugin</artifactId>-->
+<!--        <version>3.9.1</version>-->
+<!--        <configuration>-->
+<!--          <locales>en,fr,es</locales>-->
+<!--        </configuration>-->
+<!--      </plugin>-->
+<!--      <plugin>-->
+<!--        <groupId>org.apache.maven.plugins</groupId>-->
+<!--        <artifactId>maven-javadoc-plugin</artifactId>-->
+<!--        <version>3.2.0</version>-->
+<!--        <configuration>-->
+<!--        </configuration>-->
+<!--      </plugin>-->
       <!--generate project code documentation-->
       <!--  <plugin>
           <groupId>org.apache.maven.plugins</groupId>

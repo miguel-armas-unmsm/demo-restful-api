@@ -3,6 +3,9 @@ server:
 
 spring:
 
+  application:
+    name: business-menu-options
+
   h2:
     console:
       enabled: true
@@ -29,3 +32,8 @@ springdoc:
   swagger-ui:
     path: /swagger/index.html
     enabled: true
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka

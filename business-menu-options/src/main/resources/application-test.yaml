@@ -3,6 +3,9 @@ server:
 
 spring:
 
+  application:
+    name: business-menu-options
+
   h2:
     console:
       enabled: true

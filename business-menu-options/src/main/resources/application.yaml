@@ -3,6 +3,9 @@ server:
 
 spring:
 
+  application:
+    name: business-menu-options
+
   datasource:
     url: jdbc:mysql://127.0.0.1:3306/db_menu_purchase?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
     driverClassName: com.mysql.cj.jdbc.Driver
@@ -24,3 +27,14 @@ springdoc:
   swagger-ui:
     path: /swagger/index.html
     enabled: true
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"

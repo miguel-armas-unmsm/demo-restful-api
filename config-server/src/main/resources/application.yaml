@@ -1,0 +1,29 @@
+server:
+  port: 8888
+
+spring:
+  application:
+    name: config-server
+
+  cloud:
+    config:
+      server:
+        git:
+          uri: ${LOCAL_REPOSITORY:C:\\\\Users\\\\Miguel\\\\dev\\\\demo-restful-api\\\\config-server-repo\\\\}
+          clone-on-start: true
+          default-label: feature/crud-menu-options
+          # C:\Users\Miguel\dev\demo-restful-api\bbq-properties
+  security:
+    user:
+      name: admin
+      password: qwerty
+
+  profiles:
+    active: native
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: ${EUREKA_SERVER:http://localhost:8761/eureka}
+
+

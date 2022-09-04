@@ -3,6 +3,9 @@ server:
 
 spring:
 
+  application:
+    name: business-menu-options
+
   datasource:
     url: jdbc:sqlserver://unmsmserver.database.windows.net:1433;databaseName=unmsmdatabase
     driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
@@ -25,3 +28,8 @@ springdoc:
   swagger-ui:
     path: /swagger/index.html
     enabled: true
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka

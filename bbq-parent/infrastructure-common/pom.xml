@@ -14,27 +14,23 @@
   <artifactId>infrastructure-common</artifactId>
   <packaging>pom</packaging>
 
-  <!--  <modules>-->
-  <!--    <module>business-menu-options</module>-->
-  <!--  </modules>-->
+  <properties>
+    <spring-cloud-dependencies.version>2021.0.0</spring-cloud-dependencies.version>
+    <spring-boot-admin.version>2.5.5</spring-boot-admin.version>
+  </properties>
 
-  <build>
-    <plugins>
-      <!--It is the spring-boot repackage goal that repackages the JAR produced by maven to specify the main class and
-      make it executable using an embedded container-->
-      <plugin>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-maven-plugin</artifactId>
-        <version>${spring-boot-maven-plugin.version}</version>
-        <executions>
-          <execution>
-            <goals>
-              <goal>repackage</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-    </plugins>
-  </build>
+  <!--Allows consolidate and centralized management of deendency version witout adding dependencies that are inherit by
+   all children, it is useesfull whe we have a set of porjects that inherit a common parent.-->
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.springframework.cloud</groupId>
+        <artifactId>spring-cloud-dependencies</artifactId>
+        <version>${spring-cloud-dependencies.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
 
 </project>
