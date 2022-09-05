@@ -3,12 +3,6 @@ springdoc:
     path: /swagger/index.html
     enabled: true
 
-management:
-  endpoints:
-    web:
-      exposure:
-        include: "*"
-
 application:
   http-client:
     menu-options:

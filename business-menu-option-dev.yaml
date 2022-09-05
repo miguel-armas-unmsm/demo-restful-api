@@ -3,12 +3,6 @@ springdoc:
     path: /swagger/index.html
     enabled: true
 
-management: #monitor by actuator
-  endpoints:
-    web:
-      exposure:
-        include: "*"
-
 spring:
   jpa:
     show-sql: true
