@@ -1,4 +1,4 @@
-#Caso de estudio: Reactive BBQ
+# Caso de estudio: Reactive BBQ
 `<autor>`: Miguel Rodrigo Armas Abt
 
 > Reactive BBQ es un restaurante que se enfoca en sabores tradicionales de barbacoa. Comenzó como una tienda familiar y finalmente comenzó a crecer. Ellos habrían abierto un par de otras ubicaciones, luego tal vez se mudaron a algunas ciudades diferentes, luego se mudaron por todo el país y ahora están en el punto en el que realmente se han globalizado.
@@ -7,7 +7,7 @@
 
 > Entonces El Reactive BBQ Restaurant, ahora está buscando arquitecturas para tratar de ayudar a resolver ese problema, ya que está experimentando una importante actualización de su software. Buscan modernizar su monolito heredado mediante la creación de nuevas piezas de la aplicación como microservicios.
 
-##Expertos en el dominio
+## Expertos en el dominio
 > Tras hablar con los expertos en el dominio restaurante e intentar entender su vocabulario para usarlo en nuestro modelo pudimos identificar las siguientes actividades utilizando la notación sujeto-verbo-objeto.
 
 - Anfitrión
@@ -35,7 +35,7 @@
     - El cliente en línea realiza el pago de un pedido.
     - El cliente en línea hace una reserva.
 
-##Bounded contexts
+## Bounded contexts
 > De acuerdo a los objetos definidos en las actividades anteriores se identificaron los siguientes bounded contexts y algunas palabras de sus lenguajes ubicuos.
 
 - Reservation: reservation, table, customer, time, location
@@ -46,15 +46,15 @@
 # Tecnologías de interés
 Java 8, Retrofit, Lombok, Mapstruct, JUnit, Mockito, Eureka, Config Server, Docker
 
-##Diferencia entre Spring Framework y Spring Boot
+## Diferencia entre Spring Framework y Spring Boot
 > Spring framework es un conjunto de herramientas para escribir aplicaciones Java que nos ofrece un conjunto de platillas predefinidas para las principales funcionalidades como seguridad, persistencia, MVC y demás. Por otra parte Spring Boot es una extension de Spring Framework que incluye un servidor Tomcat embebido y nos libera de todas las tareas repetitivas de configuración debido a la gran cantidad de starters (ficheros pom.xml preconfigurados) con todas las características necesarias para llevar a cabo ciertas tareas. Por ejemplo, el starter WEB trae el Tomcat embebido que nos permite desplegar una aplicación web de manera sencilla. Así mismo, si se utiliza el starter JPA, se tiene las preconfiguraciones para trabajar con una base de datos.
 
 `<Releases Spring Boot 2>`: https://github.com/spring-projects/spring-boot/wiki/Spring-Boot-2.6-Release-Notes
 
-##Actuator
+## Actuator
 > Starter que pone a disposición endpoints que nos brindan información de las propiedades del microservicio, de su propia configuración, de lo que está pasando en tiempo de ejecución, de la memoria que está utilizando, etc.
 
-##Docker
+## Docker
 > Docker es un contenedor donde empaquetamos toda nuestra solución y después la podemos administrar de una manera sencilla. Es portable y no depende del SO o de sus aplicaciones, por eso garantiza que nuestra solución no va a depender de lo que haya en un servidor o un equipo instalado, solamente de lo que esté dentro el contenedor.
 
 > Una imagen es una plantilla donde nosotros indicamos cómo crear un contenedor (librerías, archivos, variables, etc.).
