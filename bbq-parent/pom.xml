@@ -19,6 +19,7 @@
     <spring-boot-starter-web.version>2.6.2</spring-boot-starter-web.version>
     <spring-boot-maven-plugin.version>2.6.2</spring-boot-maven-plugin.version>
     <junit.platform.version>1.5.2</junit.platform.version>
+    <dockerfile-maven-version>1.4.13</dockerfile-maven-version>
   </properties>
 
   <modules>
@@ -82,8 +83,8 @@
 
   </dependencies>
 
-  <build>
-    <plugins>
+<!--  <build>-->
+<!--    <plugins>-->
       <!--This plugin generate reports in two differents forma .txt and xml
       in test phase when build life cicle is execuite-->
 <!--      <plugin>-->
@@ -94,31 +95,6 @@
 <!--          <useSystemClassLoader>false</useSystemClassLoader>-->
 <!--        </configuration>-->
 <!--      </plugin>-->
-
-
-      <!--<plugin>
-            <groupId>com.spotify</groupId>
-            <artifactId>dockerfile-maven-plugin</artifactId>
-            <version>${dockerfile-maven-version}</version>
-            <executions>
-                <execution>
-                    <id>build-docker-image</id>
-                    <phase>package</phase>
-                    <goals>
-                        <goal>build</goal>
-                        <goal>push</goal>
-                    </goals>
-                </execution>
-            </executions>
-            <configuration>
-                <repository>paymentchain/microservice-docker-${project.artifactId}</repository>
-                <tag>${project.version}</tag>
-                <buildArgs>
-                    <JAR_FILE>${project.build.finalName}.jar</JAR_FILE>
-                </buildArgs>
-            </configuration>
-        </plugin>-->
-
 <!--      <plugin>-->
 <!--        <groupId>org.apache.maven.plugins</groupId>-->
 <!--        <artifactId>maven-site-plugin</artifactId>-->
@@ -171,7 +147,7 @@
               </execution>
           </executions>
       </plugin>-->
-    </plugins>
-  </build>
+<!--    </plugins>-->
+<!--  </build>-->
 
 </project>

@@ -1,24 +1,83 @@
-### Menu Options
-`<repositorio>` : <>
-
+#Caso de estudio: Reactive BBQ
 `<autor>`: Miguel Rodrigo Armas Abt
 
-##Descripción del proyecto
-#### Consideraciones funcionales
-> * Gestión de opciones de menú (CRUD).
+> Reactive BBQ es un restaurante que se enfoca en sabores tradicionales de barbacoa. Comenzó como una tienda familiar y finalmente comenzó a crecer. Ellos habrían abierto un par de otras ubicaciones, luego tal vez se mudaron a algunas ciudades diferentes, luego se mudaron por todo el país y ahora están en el punto en el que realmente se han globalizado.
 
-#### Consideracion técnicas
-> * El API experience-menu-purchase consume la API de negocio mediante REST, vale decir, mediante application/json.
-* La API de negocio accede a una base de datos relacional para gestionar las opciones de menú.
-* Aplica pruebas unitarias
-* Tecnologías de interés: Java 8, Retrofit, Lombok, Mapstruct, JUnit, Mockito
+> El software es una gran parte de su negocio, sin embargo, lo que sucedió es que, el restaurante realmente creció y el software creció orgánicamente con él, simplemente atornillaron cosas en diferentes lugares hasta el punto en que ahora tienen una aplicación que hace varias cosas. Hace de todo, desde la gestión de inventario hasta los precios del menú, las entregas y los pedidos y reservas online. Todos estos se han agrupado en un solo sistema y lo que están descubriendo ahora es que ese sistema realmente está luchando por su propio peso. Tienen muchos procesos heredados relacionados con ese sistema antiguo y algunos de esos procesos heredados requieren que el sistema se apague durante un período de tiempo. Cuando, por supuesto, el sistema se desactiva, significa que no pueden hacer cosas en sus restaurantes, por lo que deben tratar de orientar ese tiempo de inactividad a períodos en los que no hay mucha actividad en sus restaurantes o cuando los restaurantes están cerrados. Eso estaba bien cuando todas sus ubicaciones estaban en América del Norte, pero a medida que se han globalizado, cada vez es más difícil encontrar esos períodos de tiempo en los que pueden tener tiempo de inactividad.
 
-##Prerrequisitos para instalación y despliegue
-* Java 11
-* Maven 3.8.1
-* Habilitar plugin de Lombok
+> Entonces El Reactive BBQ Restaurant, ahora está buscando arquitecturas para tratar de ayudar a resolver ese problema, ya que está experimentando una importante actualización de su software. Buscan modernizar su monolito heredado mediante la creación de nuevas piezas de la aplicación como microservicios.
 
-##Instalación
-* Por defecto, la APIs de negocio se conectará a MySQL, pero se puede cambiar de gestor de base de datos cambiando el archivo de propiedades (application.yaml)
-* Para insertar data de prueba en cada caso copiar, pegar y ejecutar las instrucciones SQL que están en el archivo data.sql ubicado en el paquete test/resources.
-* Finalmente probar la APIs business mediante postman, seguido de la API experience.
+##Expertos en el dominio
+> Tras hablar con los expertos en el dominio restaurante e intentar entender su vocabulario para usarlo en nuestro modelo pudimos identificar las siguientes actividades utilizando la notación sujeto-verbo-objeto.
+
+- Anfitrión
+    - El anfitrión verifica las reservas actuales.
+    - El anfitrión crea una reserva para un cliente.
+    - El anfitrión asienta al cliente con reserva.
+
+- Mesero
+    - El mesero toma el pedido.
+    - El mesero entrega el pedido.
+    - El mesero cobra el pago de un pedido.
+  
+- Chef de cocina
+    - El chef de cocina prepara un pedido.
+    - El chef de cocina notifica al mesero que el pedido está completo.
+    - El chef de cocina inspecciona los pedidos.
+
+- Conductor de delivery
+    - El conductor recoge un pedido en el restaurante.
+    - El conductor entrega un pedido al cliente.
+    - El conductor cobra el pago de un pedido.
+
+- Cliente en línea
+    - El cliente en línea agrega elementos del menú a un pedido.
+    - El cliente en línea realiza el pago de un pedido.
+    - El cliente en línea hace una reserva.
+
+##Bounded contexts
+> De acuerdo a los objetos definidos en las actividades anteriores se identificaron los siguientes bounded contexts y algunas palabras de sus lenguajes ubicuos.
+
+- Reservation: reservation, table, customer, time, location
+- Payment: credit, debit, cash
+- Order: order, cook, notification, delivery, tip
+- Menu: drink, plate, items
+    
+# Tecnologías de interés
+Java 8, Retrofit, Lombok, Mapstruct, JUnit, Mockito, Eureka, Config Server, Docker
+
+##Diferencia entre Spring Framework y Spring Boot
+> Spring framework es un conjunto de herramientas para escribir aplicaciones Java que nos ofrece un conjunto de platillas predefinidas para las principales funcionalidades como seguridad, persistencia, MVC y demás. Por otra parte Spring Boot es una extension de Spring Framework que incluye un servidor Tomcat embebido y nos libera de todas las tareas repetitivas de configuración debido a la gran cantidad de starters (ficheros pom.xml preconfigurados) con todas las características necesarias para llevar a cabo ciertas tareas. Por ejemplo, el starter WEB trae el Tomcat embebido que nos permite desplegar una aplicación web de manera sencilla. Así mismo, si se utiliza el starter JPA, se tiene las preconfiguraciones para trabajar con una base de datos.
+
+`<Releases Spring Boot 2>`: https://github.com/spring-projects/spring-boot/wiki/Spring-Boot-2.6-Release-Notes
+
+##Actuator
+> Starter que pone a disposición endpoints que nos brindan información de las propiedades del microservicio, de su propia configuración, de lo que está pasando en tiempo de ejecución, de la memoria que está utilizando, etc.
+
+##Docker
+> Docker es un contenedor donde empaquetamos toda nuestra solución y después la podemos administrar de una manera sencilla. Es portable y no depende del SO o de sus aplicaciones, por eso garantiza que nuestra solución no va a depender de lo que haya en un servidor o un equipo instalado, solamente de lo que esté dentro el contenedor.
+
+> Una imagen es una plantilla donde nosotros indicamos cómo crear un contenedor (librerías, archivos, variables, etc.).
+
+> ¿Qué necesita el SO para ejecutar nuestro contenedor? Necesita un Docker Engine, que ejecute los contenedores, en los cuales se almacenan nuestras aplicaciones. Docker engine se encarga de hacer la gestión de recursos de cada una de las aplicaciones de acuerdo a lo que necesite el SO.
+
+> Un orquestador, que gestione (despliegue, red, etc) todos los microservicios por lo general sería Kubernetes, pero para efectos prácticos este proyecto utiliza Docker Compose. La version Docker Compose debe estar alineado a Docker Engine (3.8 - 19.03)
+
+```javascript
+
+$ java -jar directory/target/application-0.0.1-SNAPSHOT.jar // ejecutar un proyecto de java
+$ docker images                       //listar imágenes 
+$ docker image ls                     //listar imágenes 
+$ docker container ls                 //listar los contenedores activos 
+$ docker ps                           //listar los contenedores activos 
+$ docker ps -a                        //listar todos los contenedores
+$ docker container --help             //listar comandos para containers 
+$ docker logs -f [CONTAINER_NAMES]    //ver logs 
+$ docker rmi -f [IMAGE_NAME:VERSION]  //eliminar imagen 
+$ docker rm [CONTAINER_ID]            //eliminar container  
+$ docker compose up -d                //ejecutar el fichero docker-compose.yaml
+$ docker-compose start                //iniciar los servicios que no están iniciados
+$ docker-compose stop                 //detener los servicios que están iniciados
+$ docker start [CONTAINER_NAMES]
+
+```
