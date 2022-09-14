@@ -1,0 +1,37 @@
+server:
+  port: 8093
+
+spring:
+  cloud:
+    config:
+      discovery:
+        enabled: true
+        service-id: config-server
+      failFast: true
+      name: business #name of base properties config file, before profile
+      profile: menu-option-dev #name of file
+      #label: latest
+      username: admin
+      password: 123
+      retry:
+        max-attempts: 1
+        max-interval: 1000
+
+  application:
+    name: business-menu-option
+
+springdoc:
+  swagger-ui:
+    path: /swagger/index.html
+    enabled: true
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: ${EUREKA_SERVER:http://localhost:8761/eureka}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"

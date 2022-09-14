@@ -1,0 +1,41 @@
+server:
+  port: 8093
+
+#disable eureka
+#eureka:
+#  client:
+#    enabled: false
+
+spring:
+  application:
+    name: business-menu-option
+
+  #disable cloud
+#  cloud:
+#    config:
+#      enabled: false
+#      discovery:
+#        enabled: false
+
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: create-drop #create schema
+    database-platform: org.hibernate.dialect.H2Dialect
+    properties:
+      hibernate:
+        show_sql: true
+        use_sql_comments: false
+        format_sql: true
+    defer-datasource-initialization: true #read data.sql file after schema generation by hibernate
+
+  h2:
+    console:
+      enabled: true
+  datasource:
+    url: jdbc:h2:mem:unmsmdatabase;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    driverClassName: org.h2.Driver
+    platform: h2
+    username: sa
+    password:
+
