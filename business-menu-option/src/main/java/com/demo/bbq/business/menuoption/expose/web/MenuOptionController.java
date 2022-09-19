@@ -48,13 +48,18 @@ public class MenuOptionController {
 
   @GetMapping(produces = "application/json", value = "/{id}")
   public ResponseEntity<MenuOptionResponse> findById(@PathVariable(name = "id") Long id) {
-    return ResponseEntity.ok(service.findById(id));
+    return (service.findById(id) == null)
+        ? ResponseEntity.notFound().build()
+        : ResponseEntity.ok(service.findById(id));
   }
 
   @GetMapping(produces = "application/json")
   public ResponseEntity<List<MenuOptionResponse>> findByCategory(
-      @RequestParam(value = "category", required = false) String category) {
-    return ResponseEntity.ok(service.findByCategory(category));
+      @RequestParam(value = "category", required = false) String categoryCode) {
+    List<MenuOptionResponse> menuOptionResponseList = service.findByCategory(categoryCode);
+    return (menuOptionResponseList == null || menuOptionResponseList.isEmpty())
+        ? ResponseEntity.noContent().build()
+        : ResponseEntity.ok(service.findByCategory(categoryCode));
   }
 
   @PostMapping
@@ -65,14 +70,16 @@ public class MenuOptionController {
 
   @PutMapping(value = "/{id}")
   public ResponseEntity<Void> update(@Valid @RequestBody MenuOptionRequest menuOption, @PathVariable("id") Long id) {
-    service.update(id, menuOption);
-    return ResponseEntity.created(buildPutUriLocation.apply(id)).build();
+    return (service.update(id, menuOption) == null)
+        ? ResponseEntity.notFound().build()
+        : ResponseEntity.created(buildPutUriLocation.apply(id)).build();
   }
 
   @DeleteMapping(value = "/{id}")
   public ResponseEntity<Void> delete(@PathVariable("id") Long id) {
-    service.deleteById(id);
-    return ResponseEntity.noContent().build();
+    return (service.deleteById(id) == null)
+        ? ResponseEntity.notFound().build()
+        : ResponseEntity.noContent().build();
   }
 
   private final static Function<Long, URI> buildPostUriLocation = id ->

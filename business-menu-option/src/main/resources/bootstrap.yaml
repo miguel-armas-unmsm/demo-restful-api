@@ -8,8 +8,8 @@ spring:
         enabled: true
         service-id: config-server
       failFast: true
-      name: business #name of base properties config file, before profile
-      profile: menu-option-dev #name of file
+      name: business #prefix, name of API type
+      profile: menu-option-dev #sufix, indicate the execution environment
       #label: latest
       username: admin
       password: 123

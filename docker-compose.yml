@@ -82,7 +82,7 @@ services:
     environment:
       - EUREKA_SERVER=http://registry-discovery-server:8761/eureka/
       - BUSINESS_MENU_OPTION_BASE_PATH:http://business-menu-option:8093/bbq/business/v1/
-      - Dspring.profiles.active=development
+      - Dspring.profiles.active=development #replace spring.cloud.config.profile in bootstrap.yml
       - JAVA_OPTS=
         -Xms256M
         -Xmx256M

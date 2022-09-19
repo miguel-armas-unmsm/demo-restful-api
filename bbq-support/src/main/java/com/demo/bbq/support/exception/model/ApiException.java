@@ -1,13 +1,10 @@
 package com.demo.bbq.support.exception.model;
 
 import com.demo.bbq.support.exception.util.builder.ApiExceptionBuilder;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import java.util.*;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.http.HttpStatus;
-
 
 /**
  * <br/>Clase modelo que define el objeto de excepción personalizada.<br/>
@@ -29,62 +26,43 @@ import org.springframework.http.HttpStatus;
 @Setter
 public class ApiException extends RuntimeException {
 
-  @JsonProperty(value = "systemCode")
-  private String systemCode;
-
-  @JsonProperty(value = "description")
-  private String description;
-
-  @JsonProperty(value = "httpStatus")
-  private HttpStatus httpStatus;
-
-  @JsonProperty("properties")
-  private Map<String, Object> properties;
-
-  @JsonProperty("exceptionDetails")
-  private List<ApiExceptionDetail> exceptionDetails;
-
-  @JsonProperty("cause")
+  private String type;
+  private String title;
+  private String errorCode;
+  private List<ApiExceptionDetail> details;
   private Throwable cause;
+  private HttpStatus status;
 
-  public ApiException(String systemCode, String description, HttpStatus httpStatus,
-                      List<ApiExceptionDetail> exceptionDetails, Map<String, Object> properties,
-                      Throwable cause) {
+  public ApiException(String type, String title, String errorCode, List<ApiExceptionDetail> details, Throwable cause,
+                      HttpStatus status) {
 
-    super(description, cause);
-    this.systemCode = systemCode;
-    this.description = description;
-    this.httpStatus = httpStatus;
-    this.exceptionDetails = Optional.ofNullable(exceptionDetails)
+    super(title, cause);
+    this.type = type;
+    this.title = title;
+    this.errorCode = errorCode;
+    this.details = Optional.ofNullable(details)
         .map(Collections::unmodifiableList)
         .orElseGet(Collections::emptyList);
-    this.properties = properties;
+    this.status = status;
   }
 
-  /**
-   * Construye un objeto ApiException básico, con los campos obligatorios.
-   *
-   * @param systemCode código de error definido para el sistema.
-   * @param description descripción del error.
-   * @param httpStatus código de estado HTTP.
-   * @return ApiExceptionBuilder
-   */
-  public static ApiExceptionBuilder builder(String systemCode, String description, HttpStatus httpStatus) {
+  public static ApiExceptionBuilder builder(String type, String errorCode, String title, HttpStatus status) {
     return new ApiExceptionBuilder()
-        .systemCode(systemCode)
-        .description(description)
-        .httpStatus(httpStatus);
+        .type(type)
+        .title(title)
+        .errorCode(errorCode)
+        .status(status);
   }
 
-  public List<ApiExceptionDetail> getExceptionDetails() {
+  public List<ApiExceptionDetail> getDetails() {
     if (this.getCause() instanceof ApiException) {
-      List<ApiExceptionDetail> details = ((ApiException)this.getCause()).getExceptionDetails();
+      List<ApiExceptionDetail> details = ((ApiException)this.getCause()).getDetails();
       List<ApiExceptionDetail> newDetails = new ArrayList<>();
-      newDetails.addAll(this.exceptionDetails);
+      newDetails.addAll(this.details);
       newDetails.addAll(details);
       return Collections.unmodifiableList(newDetails);
     } else {
-      return this.exceptionDetails;
+      return this.details;
     }
   }
 

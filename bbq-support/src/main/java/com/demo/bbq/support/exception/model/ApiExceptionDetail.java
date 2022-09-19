@@ -1,7 +1,8 @@
 package com.demo.bbq.support.exception.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import java.io.Serializable;
+
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,15 +12,12 @@ import lombok.Getter;
 @Data
 @Builder
 @AllArgsConstructor
-public final class ApiExceptionDetail implements Serializable {
+public class ApiExceptionDetail implements Serializable {
 
-  @JsonProperty("code")
-  private String code;
+  @ApiModelProperty(notes = "A human-readable explanation specific to this occurrence of the problem")
+  private String title;
 
-  @JsonProperty("component")
+  @ApiModelProperty(notes = "The component where the error is coming from")
   private String component;
-
-  @JsonProperty("description")
-  private String description;
 
 }

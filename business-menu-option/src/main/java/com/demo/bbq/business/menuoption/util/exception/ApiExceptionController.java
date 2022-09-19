@@ -1,9 +1,11 @@
 package com.demo.bbq.business.menuoption.util.exception;
 
+import com.demo.bbq.support.exception.model.ApiException;
+import com.demo.bbq.support.exception.model.ApiExceptionDetail;
+import com.demo.bbq.support.exception.model.ApiExceptionResponse;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-import com.demo.bbq.support.exception.basic.model.ApiException;
-import com.demo.bbq.support.exception.basic.model.ApiExceptionResponse;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -18,40 +20,45 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @RestControllerAdvice
 public class ApiExceptionController extends ResponseEntityExceptionHandler {
 
-  @ExceptionHandler(ApiException
-          .class)
-  public final ResponseEntity<ApiExceptionResponse> sendException(ApiException ex, WebRequest request) {
-    ApiExceptionResponse apiExceptionResponse = ApiExceptionResponse
-        .builder(ex.getSystemCode(), ex.getDescription(), ex.getHttpStatus().toString())
-        .build();
-    return new ResponseEntity<>(apiExceptionResponse, ex.getHttpStatus());
-  }
-
   @Override
-  protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex,
-                                                                HttpHeaders headers,
-                                                                HttpStatus status,
-                                                                WebRequest request) {
+  protected ResponseEntity<Object> handleHttpMessageNotReadable(
+      HttpMessageNotReadableException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
+
     ApiExceptionResponse apiExceptionResponse = ApiExceptionResponse
-        .builder("MESSAGE_NOT_READABLE", ex.getCause().getMessage(), status.toString())
+        .builder("/errors/bad-requests", ex.getCause().getMessage(), "01")
         .build();
     return new ResponseEntity<>(apiExceptionResponse, HttpStatus.BAD_REQUEST);
   }
 
   @Override
-  protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
-                                                                HttpHeaders headers, HttpStatus status,
-                                                                WebRequest request) {
-    List<String> validationList = ex.getBindingResult().getFieldErrors()
+  protected ResponseEntity<Object> handleMethodArgumentNotValid(
+      MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
+
+    List<String> errorMessageList = ex.getBindingResult().getFieldErrors()
         .stream()
         .map(DefaultMessageSourceResolvable::getDefaultMessage)
         .collect(Collectors.toList());
 
-    ApiExceptionResponse apiExceptionResponse = ApiExceptionResponse
-        .builder("ARGUMENT_NOT_VALID", "Los datos proporcionados no son válidos.", status.toString())
-        .additionalDetails(validationList)
+    List<ApiExceptionDetail> detailList = new ArrayList<>();
+    for (String errorMessage: errorMessageList) {
+      detailList.add(ApiExceptionDetail.builder()
+          .title(errorMessage)
+          .component("business-menu-option")
+          .build());
+    }
+
+    ApiExceptionResponse exceptionResponse = ApiExceptionResponse
+        .builder("/errors/bad-requests", "Invalid request", "02")
+        .details(detailList)
         .build();
 
-    return new ResponseEntity<>(apiExceptionResponse, HttpStatus.BAD_REQUEST);
+    return new ResponseEntity<>(exceptionResponse, HttpStatus.BAD_REQUEST);
   }
+
+  @ExceptionHandler(ApiException.class)
+  public final ResponseEntity<ApiExceptionResponse> sendException(ApiException ex, WebRequest request) {
+    return new ResponseEntity<>(ApiExceptionResponse.builder(ex.getType(), ex.getTitle(), ex.getErrorCode()).build(),
+        ex.getStatus());
+  }
+
 }

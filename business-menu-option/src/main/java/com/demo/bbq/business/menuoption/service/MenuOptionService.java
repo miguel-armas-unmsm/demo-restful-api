@@ -23,13 +23,13 @@ import java.util.List;
  */
 public interface MenuOptionService {
 
-  List<MenuOptionResponse> findByCategory(String name);
+  List<MenuOptionResponse> findByCategory(String categoryCode);
 
   MenuOptionResponse findById(Long id);
 
   Long save (MenuOptionRequest menuOption);
 
-  void update(Long id, MenuOptionRequest menuOption);
+  Long update(Long id, MenuOptionRequest menuOption);
 
-  void deleteById(Long id);
+  Long deleteById(Long id);
 }

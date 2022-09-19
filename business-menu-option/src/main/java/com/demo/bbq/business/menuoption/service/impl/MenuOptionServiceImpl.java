@@ -5,6 +5,8 @@ import com.demo.bbq.business.menuoption.repository.MenuOptionRepository;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+
+import com.demo.bbq.business.menuoption.util.catalog.MenuOptionCategory;
 import com.demo.bbq.business.menuoption.util.exception.ExceptionCatalog;
 import com.demo.bbq.business.menuoption.util.mapper.MenuOptionMapper;
 import com.demo.bbq.business.menuoption.util.model.dto.request.MenuOptionRequest;
@@ -42,21 +44,26 @@ public class MenuOptionServiceImpl implements MenuOptionService {
   private final MenuOptionMapper menuOptionMapper;
 
   @Override
-  public List<MenuOptionResponse> findByCategory(String name) {
-    return (Optional.ofNullable(name).isEmpty()
+  public List<MenuOptionResponse> findByCategory(String categoryCode) {
+    return (Optional.ofNullable(categoryCode).isEmpty()
           ? menuOptionRepository.findAll()
-          : menuOptionRepository.findByCategory(name))
+          : validateCategory(categoryCode))
         .stream()
         .map(menuOptionMapper::fromEntityToResponse)
         .peek(menuOption -> log.info(Markers.SENSITIVE_JSON, "findByCategory: {}", new Gson().toJson(menuOption)))
         .collect(Collectors.toList());
   }
 
+  private List<MenuOption> validateCategory(String categoryCode) {
+    MenuOptionCategory.validateCategory.accept(categoryCode);
+    return menuOptionRepository.findByCategory(categoryCode);
+  }
+
   @Override
   public MenuOptionResponse findById(Long id) {
     return menuOptionRepository.findById(id)
         .map(menuOptionMapper::fromEntityToResponse)
-        .orElseThrow(ExceptionCatalog.ERROR0001::buildException);
+        .orElseThrow(ExceptionCatalog.ERROR1000::buildException);
   }
 
   @Override
@@ -65,19 +72,25 @@ public class MenuOptionServiceImpl implements MenuOptionService {
   }
 
   @Override
-  public void update(Long id, MenuOptionRequest menuOption) {
-    Optional.of(this.findById(id))
-        .ifPresentOrElse(menuOptionFound -> {
-          MenuOption menuOptionEntity = menuOptionMapper.fromRequestToEntity(menuOption);
-          menuOptionEntity.setId(id);
-          menuOptionRepository.save(menuOptionEntity);
-        }, () -> {});
+  public Long update(Long id, MenuOptionRequest menuOption) {
+    return Optional.of(this.findById(id))
+      .map(menuOptionFound -> {
+        MenuOption menuOptionEntity = menuOptionMapper.fromRequestToEntity(menuOption);
+        menuOptionEntity.setId(id);
+        menuOptionRepository.save(menuOptionEntity);
+        return menuOptionEntity.getId();
+      })
+      .orElse(null);
   }
 
   @Override
-  public void deleteById(Long id) {
-    Optional.of(this.findById(id))
-        .ifPresentOrElse(menuOptionFound -> menuOptionRepository.deleteById(id), () -> {});
+  public Long deleteById(Long id) {
+    return Optional.of(this.findById(id))
+        .map(menuOptionFound -> {
+          menuOptionRepository.deleteById(id);
+          return menuOptionFound.getId();
+        })
+        .orElse(null);
   }
 
 }

@@ -1,7 +1,6 @@
 package com.demo.bbq.business.menuoption.util.exception;
 
-import com.demo.bbq.support.exception.basic.model.ApiException;
-import com.demo.bbq.support.logstash.Markers;
+import com.demo.bbq.support.exception.model.ApiException;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
@@ -12,22 +11,22 @@ import org.springframework.http.HttpStatus;
 @Getter
 public enum ExceptionCatalog {
 
-  ERROR0001("No se encontró la opción de menú solicitada.", HttpStatus.NOT_FOUND, " [MenuOptionServiceImpl - findById]");
+  ERROR1000("/errors/business-rules", "Menu option not found", HttpStatus.NOT_FOUND),
+  ERROR1001("/errors/business-rules", "Category menu option not found", HttpStatus.NOT_FOUND);
 
-  private final String description;
-  private final HttpStatus httpStatus;
-  private final String stackTrace;
+  private final String type;
+  private final String title;
+  private final HttpStatus status;
 
   public ApiException buildException(Throwable cause) {
     return (cause instanceof ApiException)
         ? (ApiException) cause
-        : new ApiException(this.name(), this.getDescription(), this.getHttpStatus(), cause);
+        : ApiException.builder(this.type, this.name(), this.title, this.status)
+        .build();
   }
 
   public ApiException buildException() {
-    ApiException apiException = new ApiException(this.name(), this.getDescription(), this.getHttpStatus(), new Throwable());
-    log.error(Markers.SENSITIVE_TEXT, this.name().concat(this.stackTrace), apiException);
-    return apiException;
+    return ApiException.builder(this.type, this.name(), this.title, this.status).build();
   }
 
 }

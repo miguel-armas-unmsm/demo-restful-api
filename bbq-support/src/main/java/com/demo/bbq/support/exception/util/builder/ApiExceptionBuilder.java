@@ -2,54 +2,37 @@ package com.demo.bbq.support.exception.util.builder;
 
 import com.demo.bbq.support.exception.model.ApiExceptionDetail;
 import com.demo.bbq.support.exception.model.ApiException;
+import java.util.*;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpStatus;
 
-import java.util.*;
-
 public class ApiExceptionBuilder {
 
-  private String systemCode;
-  private String description;
-  private HttpStatus httpStatus;
-  private final Map<String, Object> properties = new HashMap<>();
-  private final List<ApiExceptionDetail> exceptionDetails = new ArrayList<>();
+  private String type;
+  private String errorCode;
+  private String title;
+  private final List<ApiExceptionDetail> details = new ArrayList<>();
   private Throwable cause;
+  private HttpStatus status;
 
-  public List<ApiExceptionDetail> getExceptionDetails() {
-    return this.exceptionDetails;
-  }
-
-  public ApiExceptionBuilder systemCode(String systemCode) {
-    Optional.ofNullable(systemCode)
+  public ApiExceptionBuilder type(String type) {
+    Optional.ofNullable(type)
         .filter(StringUtils::isNotBlank)
-        .ifPresent(actualSystemCode -> this.systemCode = actualSystemCode);
-
+        .ifPresent(actualType -> this.type = actualType);
     return this;
   }
 
-  public ApiExceptionBuilder description(String description) {
-    Optional.ofNullable(description)
+  public ApiExceptionBuilder errorCode(String errorCode) {
+    Optional.ofNullable(errorCode)
         .filter(StringUtils::isNotBlank)
-        .ifPresent(actualDescription -> this.description = actualDescription);
-
+        .ifPresent(actualErrorCode -> this.errorCode = actualErrorCode);
     return this;
   }
 
-  public ApiExceptionBuilder httpStatus(HttpStatus httpStatus) {
-    Optional.ofNullable(httpStatus)
-        .ifPresent(actualHttpStatus -> this.httpStatus = actualHttpStatus);
-
-    return this;
-  }
-
-  public ApiExceptionBuilder addProperty(String key, Object value) {
-    Optional.ofNullable(key)
+  public ApiExceptionBuilder title(String title) {
+    Optional.ofNullable(title)
         .filter(StringUtils::isNotBlank)
-        .filter(StringUtils::isAsciiPrintable)
-        .ifPresent(actualKey -> Optional.ofNullable(value)
-            .ifPresent(actualValue -> this.properties.put(actualKey, actualValue)));
-
+        .ifPresent(actualTitle -> this.title = actualTitle);
     return this;
   }
 
@@ -62,26 +45,33 @@ public class ApiExceptionBuilder {
     return this;
   }
 
+  public ApiExceptionBuilder status(HttpStatus status) {
+    Optional.ofNullable(status)
+        .ifPresent(actualStatus -> this.status = actualStatus);
+    return this;
+  }
+
+  public List<ApiExceptionDetail> getDetails() {
+    return this.details;
+  }
+
   public ApiException build() {
     if (Objects.nonNull(this.cause)) {
       if (this.cause instanceof ApiException) {
-        ((ApiException)this.cause).getExceptionDetails().forEach(detail -> this.addDetail()
-            .withCode(detail.getCode())
+        ((ApiException)this.cause).getDetails().forEach(detail -> this.addDetail()
             .withComponent(detail.getComponent())
-            .withDescription(detail.getDescription()));
-        this.cause((Throwable)null); // por qué? probar quitando
+            .withTitle(detail.getTitle()));
       } else {
         this.addDetail()
             .withComponent("Nombre de la api")
-            .withDescription(this.cause.getClass().getName().concat(Optional.ofNullable(this.cause.getMessage())
+            .withTitle(this.cause.getClass().getName().concat(Optional.ofNullable(this.cause.getMessage())
                 .map(" : "::concat).orElse(StringUtils.EMPTY)))
             .push();
-        this.cause((Throwable)null);
       }
+      this.cause(null);
     }
 
-    return new ApiException(this.systemCode, this.description, this.httpStatus,
-        new ArrayList<>(this.exceptionDetails), this.properties, this.cause);
+    return new ApiException(this.type, this.title, this.errorCode, new ArrayList<>(this.details), this.cause, this.status);
   }
 
 }
