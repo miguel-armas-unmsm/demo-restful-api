@@ -2,3 +2,8 @@ spring:
   data:
     mongodb:
       uri: mongodb://localhost:27017/bbq
+
+application:
+  http-client:
+    menu-options:
+      base-url: ${BUSINESS_MENU_OPTION_BASE_PATH:http://localhost:8093/bbq/business/v1/}
