@@ -11,18 +11,9 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.jackson.JacksonConverterFactory;
 
 /**
- * Clase Config que implementa las configuraciones para conectar
- * con otras APIs RESTful.<br/>
- *
- * <p>Interface: RestClientConfig.<br/>
+ * Clase Config que implementa las configuraciones para conectar con otras APIs RESTful.<br/>
  *
  * @author Miguel Armas Abt <br/>
- * <u>Developed by</u>: Miguel Armas Abt<br/>
- * <u>Changes</u>:<br/>
- * <ul>
- * <li>Set, 2021 Creación de Clase.</li>
- * </ul>
- * @version 1.0
  */
 @Configuration
 public class RestClientConfig {

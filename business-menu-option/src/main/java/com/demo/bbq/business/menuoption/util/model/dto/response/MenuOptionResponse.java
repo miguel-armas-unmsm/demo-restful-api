@@ -1,26 +1,17 @@
 package com.demo.bbq.business.menuoption.util.model.dto.response;
 
-import lombok.*;
-
 import java.io.Serializable;
 import java.math.BigDecimal;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 /**
- * <br/>Clase DTO que define el modelo de objeto para transmitir información
- * del contexto Menu Option.<br/>
- *
- * <b>Class</b>: MenuOptionResponse<br/>
+ * <br/>Clase DTO que define el modelo de objeto para transmitir información del contexto Menu Option.<br/>
  *
  * @author Miguel Armas Abt <br/>
- *      <u>Developed by</u>: <br/>
- *      <ul>
- *      <li>Miguel Armas Abt</li>
- *      </ul>
- *      <u>Changes</u>:<br/>
- *      <ul>
- *      <li>Set, 2021 Creación de Clase.</li>
- *      </ul>
- * @version 1.0
  */
 @Builder
 @Setter

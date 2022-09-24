@@ -3,9 +3,9 @@ package com.demo.bbq.experience.consultmenuoption.repository.proxy;
 import com.demo.bbq.experience.consultmenuoption.util.model.dto.request.MenuOptionRequest;
 import com.demo.bbq.experience.consultmenuoption.util.model.dto.thirdparty.MenuOptionThird;
 import io.reactivex.Observable;
+import java.util.List;
 import okhttp3.ResponseBody;
 import retrofit2.http.*;
-import java.util.List;
 
 public interface MenuOptionProxy {
 

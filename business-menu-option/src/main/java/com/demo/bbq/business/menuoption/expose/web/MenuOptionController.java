@@ -1,12 +1,12 @@
 package com.demo.bbq.business.menuoption.expose.web;
 
+import com.demo.bbq.business.menuoption.service.MenuOptionService;
+import com.demo.bbq.business.menuoption.util.model.dto.request.MenuOptionRequest;
+import com.demo.bbq.business.menuoption.util.model.dto.response.MenuOptionResponse;
 import java.net.URI;
 import java.util.List;
 import java.util.function.Function;
 import javax.validation.Valid;
-import com.demo.bbq.business.menuoption.service.MenuOptionService;
-import com.demo.bbq.business.menuoption.util.model.dto.request.MenuOptionRequest;
-import com.demo.bbq.business.menuoption.util.model.dto.response.MenuOptionResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -25,18 +25,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
  * <br/>Clase Controller que implementa los métodos necesarios para exponer mediante REST
  * los servicios del contexto Menu Option.<br/>
  *
- * <b>Class</b>: MenuOptionController<br/>
- *
  * @author Miguel Armas Abt <br/>
- *      <u>Developed by</u>: <br/>
- *      <ul>
- *      <li>Miguel Armas Abt</li>
- *      </ul>
- *      <u>Changes</u>:<br/>
- *      <ul>
- *      <li>Set, 2021 Creación de Clase.</li>
- *      </ul>
- * @version 1.0
  */
 @Slf4j
 @RequiredArgsConstructor

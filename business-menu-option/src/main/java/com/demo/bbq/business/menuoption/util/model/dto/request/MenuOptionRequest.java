@@ -1,29 +1,21 @@
 package com.demo.bbq.business.menuoption.util.model.dto.request;
 
 import com.demo.bbq.business.menuoption.util.constant.RegexConstant;
-import lombok.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 /**
- * <br/>Clase DTO que define el modelo de objeto para transmitir información
- * del contexto Menu Option.<br/>
- *
- * <b>Class</b>: MenuOptionRequest<br/>
+ * <br/>Clase DTO que define el modelo de objeto para transmitir información del contexto Menu Option.<br/>
  *
  * @author Miguel Armas Abt <br/>
- *      <u>Developed by</u>: <br/>
- *      <ul>
- *      <li>Miguel Armas Abt</li>
- *      </ul>
- *      <u>Changes</u>:<br/>
- *      <ul>
- *      <li>Set, 2021 Creación de Clase.</li>
- *      </ul>
- * @version 1.0
  */
 @Builder
 @Setter
@@ -32,13 +24,12 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 public class MenuOptionRequest implements Serializable {
 
-  @Pattern(regexp = RegexConstant.ANY_STRING)
+  @Pattern(regexp = RegexConstant.ANY_STRING, message = "name has invalid format")
   @Size(min = 3, max = 300)
   @NotNull(message = "name cannot be null")
   private String name;
 
-  @Pattern(regexp = RegexConstant.ANY_STRING)
-  @Size(min = 3, max = 300)
+  @Pattern(regexp = RegexConstant.MENU_OPTION_CATEGORY, message = "incorrect menu option category")
   @NotNull(message = "category cannot be null")
   private String category;
 

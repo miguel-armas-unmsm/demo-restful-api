@@ -2,10 +2,6 @@ package com.demo.bbq.business.menuoption.service.impl;
 
 import com.demo.bbq.business.menuoption.service.MenuOptionService;
 import com.demo.bbq.business.menuoption.repository.MenuOptionRepository;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
-
 import com.demo.bbq.business.menuoption.util.catalog.MenuOptionCategory;
 import com.demo.bbq.business.menuoption.util.exception.ExceptionCatalog;
 import com.demo.bbq.business.menuoption.util.mapper.MenuOptionMapper;
@@ -14,26 +10,18 @@ import com.demo.bbq.business.menuoption.util.model.dto.response.MenuOptionRespon
 import com.demo.bbq.business.menuoption.util.model.entity.MenuOption;
 import com.demo.bbq.support.logstash.Markers;
 import com.google.gson.Gson;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 /**
- * <br/>Clase Service que implementa los métodos necesarios para tramitar la lógica de negocio del
- * contexto Menu Option.<br/>
- *
- * <b>Class</b>: MenuOptionServiceImpl<br/>
+ * <br/>Clase Service que implementa los métodos necesarios para tramitar la lógica de negocio del contexto Menu
+ * Option.<br/>
  *
  * @author Miguel Armas Abt <br/>
- *      <u>Developed by</u>: <br/>
- *      <ul>
- *      <li>Miguel Armas Abt</li>
- *      </ul>
- *      <u>Changes</u>:<br/>
- *      <ul>
- *      <li>Set, 2021 Creación de Clase.</li>
- *      </ul>
- * @version 1.0
  */
 @Slf4j
 @RequiredArgsConstructor

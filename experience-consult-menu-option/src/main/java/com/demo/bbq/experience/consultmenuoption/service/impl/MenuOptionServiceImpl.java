@@ -5,33 +5,23 @@ import com.demo.bbq.experience.consultmenuoption.service.MenuOptionService;
 import com.demo.bbq.experience.consultmenuoption.util.mapper.MenuOptionMapper;
 import com.demo.bbq.experience.consultmenuoption.util.model.dto.request.MenuOptionRequest;
 import com.demo.bbq.experience.consultmenuoption.util.model.dto.response.MenuOptionResponse;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 
 /**
- * <br/>Clase Service que implementa los métodos necesarios para tramitar la lógica de negocio del
- * contexto Menu Option.<br/>
- *
- * <b>Class</b>: MenuOptionServiceImpl<br/>
+ * <br/>Clase Service que implementa los métodos necesarios para tramitar la lógica de negocio del contexto Menu
+ * Option.<br/>
  *
  * @author Miguel Armas Abt <br/>
- *      <u>Developed by</u>: <br/>
- *      <ul>
- *      <li>Miguel Armas Abt</li>
- *      </ul>
- *      <u>Changes</u>:<br/>
- *      <ul>
- *      <li>Set, 2021 Creación de Clase.</li>
- *      </ul>
- * @version 1.0
  */
 @RequiredArgsConstructor
 @Service
 public class MenuOptionServiceImpl implements MenuOptionService {
 
   private final MenuOptionProxy menuOptionProxy;
+
   private final MenuOptionMapper menuOptionMapper;
 
   @Override
