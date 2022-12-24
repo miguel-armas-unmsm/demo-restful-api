@@ -1,0 +1,27 @@
+server:
+  port: 8080
+
+logging:
+  level:
+    org.springframework.cloud.gateway: DEBUG
+    reactor.netty.http.client: DEBUG
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: ${EUREKA_SERVER:http://localhost:8761/eureka}
+
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    gateway:
+      routes:
+        - id: business-menu-option
+          uri: lb://business-menu-option #discover the service instance registered in eureka through load balancing
+          predicates:
+            - Path=/bbq/business/v1/menu-options/** #- Path=/** #to access swagger doc of the service through the api gateway
+        - id: business-dining-room-order
+          uri: lb://business-dining-room-order
+          predicates:
+            - Path=/bbq/business/v1/dining-room-orders/**

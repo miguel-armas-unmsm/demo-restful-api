@@ -55,7 +55,25 @@ services:
       - registry-discovery-server
     ports:
       - 8762:8762
-      
+
+  ##########################################################################
+  #api-gateway
+  ##########################################################################
+  api-gateway:
+    container_name: api-gateway-container
+    image: bbq/api-gateway-image:0.0.1-SNAPSHOT
+    #All projets will have a variable value  DEUREKA_SERVER this tell where find a registry-discovery server
+    environment:
+      - EUREKA_SERVER=http://registry-discovery-server:8761/eureka/
+      - JAVA_OPTS=
+        -Xms256M
+        -Xmx256M
+      #-Dspring.cloud.config.server.native.searchLocations=/var/config-data
+    depends_on:
+      - registry-discovery-server
+    ports:
+      - 8080:8080
+
   ##########################################################################
   #business-menu-option
   ##########################################################################
