@@ -29,9 +29,17 @@ spring:
           uri: lb://business-dining-room-order
           predicates:
             - Path=/bbq/business/v1/dining-room-orders/**
+            - Method=GET,POST,PUT,DELETE
+          filters:
+            - name: AuthenticatorFiltering
+
+        - id: auth-adapter
+          uri: lb://auth-adapter
+          predicates:
+            - Path=/bbq/infrastructure/v1/auth/**
 
 application:
   http-client:
     auth-adapter:
-      base-url: http://localhost:8088/bbq/infrastructure/v1/auth/
+      base-url: http://localhost:8080/bbq/infrastructure/v1/auth/
   user-roles: '{0:"partners"}' #separate items with comma

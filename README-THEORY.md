@@ -240,11 +240,3 @@ https://www.oracle.com/java/technologies/intercepting-filter.html
 
 > El api gateway aplica filtros (clases que extienden de AbstractGatewayFilterFactory) a las peticiones antes de 
 > redirigirlas a los servicios.
-
-
-> 
-> NOTAS:
-> -los Dockerfile tienen diferente esctructura del curso con los miios, revisar!
-> -el nombre consult-menu-options no es un nombre funcional, sino tecnico, revisar!
-> -faltan pruebas unitarias
-> -copiar manejo de excepcion externa de atlas

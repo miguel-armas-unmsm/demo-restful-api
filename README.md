@@ -5,7 +5,7 @@
 > finalmente comenzó a crecer. Ellos habrían abierto un par de otras ubicaciones, luego tal vez se mudaron a algunas 
 > ciudades diferentes, luego se mudaron por todo el país y ahora están en el punto en el que realmente se han 
 > globalizado.
-
+>
 > El software es una gran parte de su negocio, sin embargo, lo que sucedió es que, el restaurante realmente creció y el 
 > software creció orgánicamente con él, simplemente atornillaron cosas en diferentes lugares hasta el punto en que ahora
 > tienen una aplicación que hace varias cosas. Hace de todo, desde la gestión de inventario hasta los precios del menú, 
@@ -17,7 +17,7 @@
 > actividad en sus restaurantes o cuando los restaurantes están cerrados. Eso estaba bien cuando todas sus ubicaciones 
 > estaban en América del Norte, pero a medida que se han globalizado, cada vez es más difícil encontrar esos períodos de
 > tiempo en los que pueden tener tiempo de inactividad.
-
+>
 > Entonces El Reactive BBQ Restaurant, ahora está buscando arquitecturas para tratar de ayudar a resolver ese problema, 
 > ya que está experimentando una importante actualización de su software. Buscan modernizar su monolito heredado 
 > mediante la creación de nuevas piezas de la aplicación como microservicios.
@@ -63,6 +63,32 @@
 # Tecnologías de interés
 Java 8, Retrofit, Lombok, Mapstruct, JUnit, Mockito, Eureka, Config Server, Docker
 
-1. levantar registry discovery server
-2. levantar config server
-3. levantar business
+# Despliegue local
+1. Ejecutar registry-discovery-server
+2. Ejecutar config-server
+3. Ejecutar api-gateway
+4. Ejecutar el proveedor de autenticación Keycloak
+  - docker-compose -f docker-compose.yml up -d keycloak-server
+  - Ingresar con las credenciales (username=admin, password=admin) a http://localhost:8091
+  - [Realm] Crear un realm con nombre bbq-management
+  - [Realm] Ubicar la llave pública RS256 del realm creado y reemplazar la propiedad keycloak.certs-id del application.yaml de auth-adapter
+  - [Realm] Cambiar el tiempo de expiración del token a 30' (Access Token Lifespan)
+  - [User] Crear user (username=admin, password=admin, temporary=off)
+  - [Roles] Crear rol (rolename=partners)
+  - [User] Agregar rol creado al usuario
+  - [Client] Crear cliente (clientid=front-bbq-app, client-protocol=openid-connect)
+  - [Client] Actualizar la propiedad Valid Redirect URIs=*
+  - Configurar el realm, el usuario y sus roles (rol=partners)
+5. Ejecutar auth-adapter
+6. Ejecutar business-menu-option
+
+Nota: Para omitir la autenticación a través de Keycloak (paso 4 y 5), entonces comentar todas las ocurrencias del filtro 
+AuthenticatorFiltering, ubicado en la propiedad spring.cloud.gateway.routes.<id>.filters del archivo application.yaml de
+api-gateway. De esta manera no se aplicará el filtro de autenticación
+
+> NOTAS:
+> -los Dockerfile tienen diferente esctructura del curso con los miios, revisar!
+> -el nombre consult-menu-options no es un nombre funcional, sino tecnico, revisar!
+> -faltan pruebas unitarias
+> -copiar manejo de excepcion externa de atlas
+> -generar las peticiones automáticas del token en Postman

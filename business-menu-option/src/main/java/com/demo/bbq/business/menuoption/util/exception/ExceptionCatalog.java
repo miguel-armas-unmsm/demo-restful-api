@@ -11,8 +11,8 @@ import org.springframework.http.HttpStatus;
 @Getter
 public enum ExceptionCatalog {
 
-  ERROR1000("/errors/business-rules", "Menu option not found", HttpStatus.NOT_FOUND),
-  ERROR1001("/errors/business-rules", "Category menu option not found", HttpStatus.NOT_FOUND);
+  ERROR1000("/errors/business-rules", "Menu option not found", HttpStatus.BAD_REQUEST),
+  ERROR1001("/errors/business-rules", "Category menu option not found", HttpStatus.BAD_REQUEST);
 
   private final String type;
   private final String title;
