@@ -1,4 +1,4 @@
-# Caso de estudio: Reactive BBQ
+# Spring Boot y Spring Cloud
 `<autor>`: Miguel Rodrigo Armas Abt
 
 ## Diferencia entre Spring Framework y Spring Boot
@@ -49,6 +49,7 @@ $ docker-compose start                  //iniciar los servicios que no están in
 $ docker-compose stop                   //detener los servicios que están iniciados
 $ docker start [CONTAINER_NAMES]
 
+$ docker-compose -f docker-compose.yml up -d keycloak-server
 ```
 
 Volumes y mapeo de puertos
@@ -141,28 +142,109 @@ https://www.youtube.com/watch?v=fh3VaXLzH5Y
 > 
 > - API Gateway:
 >     - Despliegue centralizado, con un único punto de fallo. Se coloca una aplicación en frente de todos los 
-> servicios de la solución y todas las peticiones deben pasar por allí.
+> servicios de la solución y todo el tráfico de peticiones debe pasar por allí.
 >     - Opera y establece comunicación únicamente con el protocolo HTTP sobre TCP/IP mediante APIs.
 >     - Tráfico de norte a sur (desde internet hacia la red interna de la compañía con sus aplicaciones)
 >     - Relacionado con la disciplina API Management
+>     - Hay múltiples maneras para cerrar la conexión desde internet hacia las APIs. Depende de la infraestructura y el
+> despliegue. Lo ideal es que haya un firewall que anule las peticiones que vienen desde fuera del API gateway. En este
+> caso de uso no se puede implementar un firewall, pero se puede aprovechar las bondades de Eureka asignando un puerto
+> aleatorio que solo el API Gateway conozca para cada servicio.
+>     - Para es caso de uso se hace uso de load balancing para descubrir las instancias correctas de cada servicio, dado
+> que no se conocen sus puertos.
 > 
 > - Service MESH:
->     - Despliegue descentralizado. Se despliega una instancia del service mesh al lado de cada uno de los 
-> servicios, dentro del mismo host (pod o instancia de vm).
+>     - Despliegue descentralizado. Se despliega una instancia del service mesh al lado de cada uno de los servicios,
+> dentro del mismo host (pod o instancia de vm).
 >     - Dado que opera en un nivel más bajo, en la capa 4 (capa de transporte), añade funcionalidades más específicas
 > como el cifrado.
 >     - Tráfico de este a oeste (flujo de tráfico en la red interna de la compañía, normalmente entre servicios o bd)
-> 
-> Hay múltiples maneras para cerrar la conexión desde internet hacia las APIs que dependen de la infraestructura y el 
-> despliegue. Lo ideal es que haya un firewall que anule las peticiones desde que vienen desde fuera del API gateway. 
-> 
-> En este caso, no se puede implementar un firewall, pero se puede aprovechar las bondades de Eureka, asignando un 
-> puerto aleatorio para cada servicio que solo el API Gateway conozca.
 >
-> Load balancing: Descubre la instancia correcta del servicio
+>
+## API Gateway y seguridad
+> El Api gateway permite aplicar políticas de seguridad para acceder a los recursos de nuestra aplicación mediante 
+> peticiones autenticadas provenientes de la aplicación cliente. Esto implica centralizar el proceso de autenticación en
+> el Api gateway mediante un adaptador (Keycloack adapter) que permita conectar con un proveedor de autenticación (SOO, 
+> Oauth2). 
 > 
+> De este modo, cuando la aplicación cliente quiera acceder a cualquier recurso de nuestra aplicación primero debe 
+> solicitar un token (request access token) al provedoor de autenticación y enviarlo en la petición al API Gateway a
+> través de la cabecera Authorization. En este punto todas las peticiones que se envíen al API Gateway sin el header 
+> Authorization serán rechazadas con un error de autenticación 401. A continuación, el API Gateway utilizará el servicio
+> adaptador para que se conecte con el proveedor de auntenticación y este último valide el token de acceso (que no haya.
+> expirado, que sea del usuario correcto, que se haya emitido con la firma correcta, etc.). Finalmente, una vez que se
+> verifica que el token es válido entonces el API Gateway redirige la petición al recurso que se esté solicitando.
+> 
+> Cuando se emite el token, se emiten dos tokens, el primero es el request access token y el segundo se conoce como 
+> refresh token porque cuando los primeros tokens caducan, se debe enviar el token de refresco para hacer la solicitud
+> de un nuevo token. A continuación cada aplicación se encarga de almacenar de manera interna ambos tokens y estar 
+> verificando constantemente si el primer token ha caducado.
+>
+## Proveedor de autenticación (Keycloak)
+> - Proveedor de autenticación: Existen múltiples proveedores para el proceso de autenticación (comprobar credenciales
+> del usuario) y autorización (privilegios sobre diferentes recursos). Los proveedores más populares están en cloud 
+> (AWS, Google, Azure). También hay otros proveedores independientes de la plataforma (Keycloak) que sirven para 
+> trabajar en onepremise o cloud e incluso hay la posibilidad de implementar uno propio considerando todo el proceso de 
+> autenticación, gestión de tokens, recursos y demás. Sin embargo, esto último no es una buena práctica, ya que hoy por 
+> hoy existen soluciones open source que podemos utilizar (Keycloak). Finalmente, Oauth2, Single Sign On (SSO) son 
+> protocolos estándar que implementan los proveedores de autenticación.
+>
+> - Keycloak: Single Sign On. Una de las ventajas de Keycloak es que podemos conectarlo con proveedores de identidad 
+> como Google, Facebook, Github, LDAP para redirigir la autenticación a estas otras soluciones. Por lo general, las 
+> empresas que no utilizan cloud hacen uso de Keycloak.
+> 
+## Oauth2
+> Protocolo o estándar de autorización en el que ciertos recursos de una aplicación son controlados por un usuario y que
+> su control necesita ser delegado a otras aplicaciones cliente, pero sin la necesidad de que estas aplicaciones cliente
+> conozcan las credenciales involucradas en el proceso (username y password). El flujo Oauth2 parte del supuesto de que 
+> el usuario ya está registrado (en Facebook, Keycloack, etc.), tiene un nombre de usuario y una contraseña y tiene una
+> lista de los recursos que tiene asignados. 
+>
+## OpenID Connect
+> Protocolo que hace parte de Oauth2. Se encarga de autenticar al usuario con nombre de usuario y contraseña, luego 
+> devolver un token que pueda ser utilizado por otras aplicaciones que necesiten tener control sobre los recursos 
+> delegados dentro del proceso de Oauth2.
+>
+## Single Sign On (SSO)
+> Mecanismo que permite que el usuario se loguee una sola vez en una aplicación SSO y que en consecuencia se loguee en 
+> las demás aplicaciones que forman parte del proceso.
+>
+## Keycloak
+
+### Realm
+> Área funcional dentro de la compañía, donde se agrupará ciertos usuarios, aplicaciones y demás. Por defecto viene
+> el realm master, pero no es una buena práctica trabajar sobre este, así que creamos el nuestro. Cabe mencionar que 
+> este es un concepto propio de Keycloak y que podría variar para otros proveedores, pero con configuraciones similares.
+#### Keys
+> Para configurar la comunicación entre Keycloak y nuestro servicio adaptador es necesaria la llave pública brindada 
+> por Keycloak que permite firmar los tokens. Para este caso de uso, en la sección 'Keys' de 'Realm Settings' ocuparemos
+> RS256 sin encriptar.
+#### Tokens
+> Se pueden configurar las características del token desde la sección 'Tokens' de 'Realm Settings'. Por ejemplo,
+> podemos cambiar el tiempo de vida del token alterando el campo 'Access Token Lifespan'.
+> 
+## Roles y usuario
+> Creamos un rol, un usuario al cual le asignamos credenciales y el rol creado.
+## Clients
+> Creamos un cliente, el cual tiene una característica obligatoria (Valid Redirect URIs = *). Este cliente representa el
+> frontend de todos nuestros servicios.
+>
+### Conclusión:
+> El usuario que definimos representa al usuario que se autentica desde el cliente frontend, el cual obtiene un token 
+> del proveedor de SSO y lo utiliza para realizar peticiones a los servicios que están por detrás. Así mismo, al usuario
+> se le asignó un rol que fue creado dentro de nuestro reino (realm), el cual podría representar el departamento de 
+> RRHH, Informática, Ventas, etc. o algún otro grupo que haga sentido a la clasificación en la empresa.
+
+## Patron filter e interceptor de Java
+https://www.oracle.com/java/technologies/intercepting-filter.html
+
+> El api gateway aplica filtros (clases que extienden de AbstractGatewayFilterFactory) a las peticiones antes de 
+> redirigirlas a los servicios.
+
+
 > 
 > NOTAS:
 > -los Dockerfile tienen diferente esctructura del curso con los miios, revisar!
 > -el nombre consult-menu-options no es un nombre funcional, sino tecnico, revisar!
 > -faltan pruebas unitarias
+> -copiar manejo de excepcion externa de atlas

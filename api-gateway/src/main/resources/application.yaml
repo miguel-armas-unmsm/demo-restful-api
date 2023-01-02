@@ -18,10 +18,20 @@ spring:
     gateway:
       routes:
         - id: business-menu-option
-          uri: lb://business-menu-option #discover the service instance registered in eureka through load balancing
+          uri: lb://business-menu-option #If the URL has a scheme of lb (such as lb://myservice), it uses the Spring Cloud LoadBalancerClient to resolve the name (myservice in this case)
           predicates:
             - Path=/bbq/business/v1/menu-options/** #- Path=/** #to access swagger doc of the service through the api gateway
+            - Method=GET,POST,PUT,DELETE
+          filters:
+            - name: AuthenticatorFiltering
+
         - id: business-dining-room-order
           uri: lb://business-dining-room-order
           predicates:
             - Path=/bbq/business/v1/dining-room-orders/**
+
+application:
+  http-client:
+    auth-adapter:
+      base-url: http://localhost:8088/bbq/infrastructure/v1/auth/
+  user-roles: '{0:"partners"}' #separate items with comma
