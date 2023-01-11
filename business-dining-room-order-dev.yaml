@@ -13,7 +13,7 @@ spring:
   datasource:
     url: jdbc:postgresql://127.0.0.1:5432/db_dining_room_orders?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
     driverClassName: org.postgresql.Driver
-    username: root
+    username: postgres
     password: oracle12c
 
 application:
