@@ -1,7 +1,20 @@
 spring:
-  data:
-    mongodb:
-      uri: mongodb://localhost:27017/bbq
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    properties:
+      hibernate:
+        show_sql: true
+        use_sql_comments: false
+        format_sql: true
+
+  datasource:
+    url: jdbc:postgresql://127.0.0.1:5432/db_dining_room_orders?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+    driverClassName: org.postgresql.Driver
+    username: root
+    password: oracle12c
 
 application:
   http-client:
