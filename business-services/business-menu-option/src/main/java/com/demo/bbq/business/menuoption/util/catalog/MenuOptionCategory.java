@@ -28,6 +28,6 @@ public enum MenuOptionCategory {
       menuOptionCategoryCode -> Arrays.stream(MenuOptionCategory.values())
           .filter(menuOptionCategory -> menuOptionCategory.getCode().equals(menuOptionCategoryCode))
           .findFirst()
-          .orElseThrow(ExceptionCatalog.ERROR1001::buildException);
+          .orElseThrow(ExceptionCatalog.ERROR1001::buildCustomException);
 
 }

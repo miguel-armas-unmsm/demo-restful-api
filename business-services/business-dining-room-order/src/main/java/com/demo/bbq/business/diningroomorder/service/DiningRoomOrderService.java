@@ -2,6 +2,7 @@ package com.demo.bbq.business.diningroomorder.service;
 
 import com.demo.bbq.business.diningroomorder.util.model.dto.request.MenuOrderRequest;
 import com.demo.bbq.business.diningroomorder.util.model.dto.response.DiningRoomOrderResponse;
+import reactor.core.publisher.Mono;
 import java.util.List;
 
 /**
@@ -12,7 +13,7 @@ import java.util.List;
  */
 public interface DiningRoomOrderService {
 
-  Long generateTableOrder(List<MenuOrderRequest> menuOrderRequestList, Integer tableNumber);
+  Mono<Long> generateTableOrder(List<MenuOrderRequest> menuOrderRequestList, Integer tableNumber);
 
-  DiningRoomOrderResponse findByTableNumber(Integer tableNumber);
+  Mono<DiningRoomOrderResponse> findByTableNumber(Integer tableNumber);
 }

@@ -1,6 +1,7 @@
 package com.demo.bbq.business.menuoption.util.model.dto.request;
 
-import com.demo.bbq.business.menuoption.util.constant.RegexConstant;
+import com.demo.bbq.business.menuoption.util.constant.CustomRegexConstant;
+import com.demo.bbq.support.constant.RegexConstant;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
@@ -24,12 +25,12 @@ import lombok.Setter;
 @NoArgsConstructor
 public class MenuOptionRequest implements Serializable {
 
-  @Pattern(regexp = RegexConstant.ANY_STRING, message = "name has invalid format")
+  @Pattern(regexp = RegexConstant.ANY_STRING, message = "Name has invalid format")
   @Size(min = 3, max = 300)
   @NotNull(message = "description cannot be null")
   private String description;
 
-  @Pattern(regexp = RegexConstant.MENU_OPTION_CATEGORY, message = "incorrect menu option category")
+  @Pattern(regexp = CustomRegexConstant.MENU_OPTION_CATEGORY, message = "Invalid menu option category")
   @NotNull(message = "category cannot be null")
   private String category;
 

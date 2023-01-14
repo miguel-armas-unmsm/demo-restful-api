@@ -1,4 +1,4 @@
-package com.demo.bbq.business.diningroomorder.util.exception;
+package com.demo.bbq.business.menuoption.util.exception;
 
 import com.demo.bbq.support.exception.model.ApiException;
 import com.demo.bbq.support.exception.model.ApiExceptionDetail;
@@ -18,14 +18,14 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 @RestControllerAdvice
-public class ApiExceptionController extends ResponseEntityExceptionHandler {
+public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 
   @Override
   protected ResponseEntity<Object> handleHttpMessageNotReadable(
       HttpMessageNotReadableException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
 
     ApiExceptionResponse apiExceptionResponse = ApiExceptionResponse
-        .builder("/errors/bad-requests", ex.getCause().getMessage(), "01")
+        .builder("/errors/bad-requests", ex.getCause().getMessage(), "BAD_REQUEST_BODY_STRUCTURE")
         .build();
     return new ResponseEntity<>(apiExceptionResponse, HttpStatus.BAD_REQUEST);
   }
@@ -48,7 +48,7 @@ public class ApiExceptionController extends ResponseEntityExceptionHandler {
     }
 
     ApiExceptionResponse exceptionResponse = ApiExceptionResponse
-        .builder("/errors/bad-requests", "Invalid request", "02")
+        .builder("/errors/bad-requests", "Invalid request body", "BAD_REQUEST_BODY")
         .details(detailList)
         .build();
 

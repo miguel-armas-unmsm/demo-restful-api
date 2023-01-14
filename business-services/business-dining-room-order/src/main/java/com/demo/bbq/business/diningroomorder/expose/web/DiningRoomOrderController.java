@@ -1,19 +1,19 @@
 package com.demo.bbq.business.diningroomorder.expose.web;
 
-import java.net.URI;
 import java.util.List;
-import java.util.function.BiFunction;
+import java.util.function.Consumer;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import com.demo.bbq.business.diningroomorder.service.DiningRoomOrderService;
 import com.demo.bbq.business.diningroomorder.util.model.dto.request.MenuOrderRequest;
 import com.demo.bbq.business.diningroomorder.util.model.dto.response.DiningRoomOrderResponse;
+import com.demo.bbq.support.logstash.Markers;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import reactor.core.publisher.Mono;
 
 /**
  * <br/>Clase Controller que implementa los métodos necesarios para exponer mediante REST los servicios del contexto
@@ -27,29 +27,27 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 @RequestMapping("/bbq/business/v1/dining-room-orders")
 public class DiningRoomOrderController {
 
-  private final DiningRoomOrderService service;
+  private final DiningRoomOrderService diningRoomOrderService;
 
-  @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<DiningRoomOrderResponse> findByTableNumber(
-      @RequestParam(value = "tableNumber") Integer tableNumber) {
-    DiningRoomOrderResponse diningRoomOrder = service.findByTableNumber(tableNumber);
-    return (diningRoomOrder == null)
-        ? ResponseEntity.noContent().build()
-        : ResponseEntity.ok(diningRoomOrder);
+  @GetMapping(produces = MediaType.APPLICATION_STREAM_JSON_VALUE)
+  public Mono<DiningRoomOrderResponse> findByTableNumber(
+      HttpServletRequest servletRequest, @RequestParam(value = "tableNumber") Integer tableNumber) {
+    logRequest.accept(servletRequest);
+    return diningRoomOrderService.findByTableNumber(tableNumber);
   }
 
   @PatchMapping
-  public ResponseEntity<Void> generateTableOrder(HttpServletRequest servletRequest,
-                                             @Valid @RequestBody List<MenuOrderRequest> menuOrderRequestList,
-                                             @RequestParam(value = "tableNumber") Integer tableNumber) {
-    Long tableOrderId = service.generateTableOrder(menuOrderRequestList, tableNumber);
-    return (tableOrderId == null)
-        ? ResponseEntity.badRequest().build()
-        : ResponseEntity.created(buildPutUriLocation.apply(servletRequest, tableOrderId.toString())).build();
+  public Mono<Void> generateTableOrder(HttpServletRequest servletRequest,
+                                       HttpServletResponse servletResponse,
+                                       @Valid @RequestBody List<MenuOrderRequest> menuOrderRequestList,
+                                       @RequestParam(value = "tableNumber") Integer tableNumber) {
+    logRequest.accept(servletRequest);
+    return diningRoomOrderService.generateTableOrder(menuOrderRequestList, tableNumber)
+        .doOnSuccess(tableOrderId -> servletResponse.setStatus(201))
+        .then(Mono.empty());
   }
 
-  private final static BiFunction<HttpServletRequest, String, URI> buildPutUriLocation = (servletRequest, id) ->
-      ServletUriComponentsBuilder.fromRequestUri(servletRequest)
-      .buildAndExpand()
-      .toUri();
+  private final static Consumer<HttpServletRequest> logRequest = servletRequest->
+      log.info(Markers.SENSITIVE_JSON, "{}", servletRequest.getMethod() + ": " + servletRequest.getRequestURI());
+
 }
