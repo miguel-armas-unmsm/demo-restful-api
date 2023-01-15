@@ -2,11 +2,12 @@ package com.demo.bbq.business.menuoption.util.mapper;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import com.demo.bbq.business.menuoption.util.JsonFileReader;
 import com.demo.bbq.business.menuoption.util.model.dto.request.MenuOptionRequest;
 import com.demo.bbq.business.menuoption.util.model.dto.response.MenuOptionResponse;
 import com.demo.bbq.business.menuoption.util.model.entity.MenuOption;
+import com.demo.bbq.support.util.JsonFileReader;
 import com.google.gson.Gson;
+import java.io.IOException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -14,8 +15,6 @@ import org.mapstruct.factory.Mappers;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.junit.jupiter.MockitoSettings;
 import org.mockito.quality.Strictness;
-
-import java.io.IOException;
 
 @ExtendWith(MockitoExtension.class)
 @MockitoSettings(strictness = Strictness.LENIENT)

@@ -1,6 +1,9 @@
 package com.demo.bbq.business.diningroomorder.repository.database;
 
 import com.demo.bbq.business.diningroomorder.util.model.entity.MenuOrder;
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
@@ -13,4 +16,6 @@ import org.springframework.stereotype.Repository;
 public interface MenuOrderRepository extends CrudRepository<MenuOrder, Long> {
 
   MenuOrder save(MenuOrder menuOrder);
+
+  Optional<MenuOrder> findByMenuOptionId(Long menuOptionId);
 }

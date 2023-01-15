@@ -10,7 +10,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON;
 import com.demo.bbq.business.menuoption.service.MenuOptionService;
 import com.demo.bbq.business.menuoption.util.model.dto.request.MenuOptionRequest;
 import com.demo.bbq.business.menuoption.util.model.dto.response.MenuOptionResponse;
-import com.demo.bbq.business.menuoption.util.JsonFileReader;
+import com.demo.bbq.support.util.JsonFileReader;
 import com.google.gson.Gson;
 import java.io.IOException;
 import java.util.List;

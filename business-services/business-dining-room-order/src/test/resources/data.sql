@@ -1,6 +1,5 @@
-INSERT INTO menu_options(name, category, price, is_active) VALUES ('Ají de gallina', 'food', 15, true);
-INSERT INTO menu_options(name, category, price, is_active) VALUES ('Chancho al cilindro', 'food', 25, false);
-INSERT INTO menu_options(name, category, price, is_active) VALUES ('Jarra de chicha', 'drink', 12, true);
-INSERT INTO menu_options(name, category, price, is_active) VALUES ('Jarra de maracuyá', 'drink', 12, true);
-INSERT INTO menu_options(name, category, price, is_active) VALUES ('Torta de chocolate', 'dessert', 10, false);
-INSERT INTO menu_options(name, category, price, is_active) VALUES ('Pie de manzana', 'dessert', 10, true);
+INSERT INTO tables(is_available, table_number, capacity) VALUES (true, 1, 4);
+INSERT INTO tables(is_available, table_number, capacity) VALUES (true, 2, 4);
+INSERT INTO tables(is_available, table_number, capacity) VALUES (false, 3, 4);
+INSERT INTO tables(is_available, table_number, capacity) VALUES (true, 4, 4);
+INSERT INTO tables(is_available, table_number, capacity) VALUES (false, 5, 4);

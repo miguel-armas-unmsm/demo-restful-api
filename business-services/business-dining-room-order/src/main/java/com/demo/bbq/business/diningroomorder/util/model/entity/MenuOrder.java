@@ -21,7 +21,7 @@ public class MenuOrder implements Serializable{
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @Column(name = "menu_option_id")
+  @Column(name = "menu_option_id") // should be unique=true
   private Long menuOptionId;
 
   @Column(name = "quantity")

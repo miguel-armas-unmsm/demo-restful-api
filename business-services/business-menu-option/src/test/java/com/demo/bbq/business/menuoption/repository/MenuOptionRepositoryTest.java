@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.demo.bbq.business.menuoption.util.model.entity.MenuOption;
-import com.demo.bbq.business.menuoption.util.JsonFileReader;
+import com.demo.bbq.support.util.JsonFileReader;
 import com.google.gson.Gson;
 import java.io.IOException;
 import java.util.List;

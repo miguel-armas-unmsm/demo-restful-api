@@ -58,7 +58,36 @@ public class DiningRoomOrderServiceImpl implements DiningRoomOrderService {
             .ignoreElements()
             .then(this.saveDiningRoomTable(table)
                 .map(DiningRoomTable::getId)));
+
+// si se agrega a la orden más opciones de menu del mismo tipo (mismo menuOptionId) entonces chancar el registro que ya existía en bd
+//
+//    return this.findDiningRoomTableByTableNumber(tableNumber)
+//        .flatMap(diningRoomTable -> Flux.fromIterable(menuOrderRequestList)
+//            .flatMap(menuOrderRequest -> this.findMenuOptionById(menuOrderRequest.getMenuOptionId())
+//                .onErrorResume(ex -> Mono.error(ExceptionCatalog.ERROR1001.buildCustomException("id: " + menuOrderRequest.getMenuOptionId())))
+//                .flatMapMany(menuOptionFound -> Flux.fromIterable(diningRoomTable.getMenuOrderList())
+//                    .doOnNext(x -> log.info("diningRoomTable-MenuOrder: " + new com.google.gson.Gson().toJson(x)))
+//                    .flatMap(previousMenuOrder -> this.validateAndSaveMenuOrder(previousMenuOrder.getMenuOptionId(), diningRoomTable.getId(), menuOrderRequest))
+//                    .switchIfEmpty(this.validateAndSaveMenuOrder(menuOrderMapper.fromRequestToEntity(menuOrderRequest, diningRoomTable.getId())))
+//                ))
+//            .flatMap(savedMenuOrder -> Mono.just(diningRoomTable))
+//            .next())
+//        .flatMap(diningRoomTable -> this.saveDiningRoomTable(diningRoomTable)
+//            .map(DiningRoomTable::getId));
   }
+  private Mono<MenuOrder> validateAndSaveMenuOrder(Long previousMenuOrderId, Long diningRoomTableId, MenuOrderRequest menuOrderRequest) {
+    return (!previousMenuOrderId.equals(menuOrderRequest.getMenuOptionId()))
+        ? this.addToPreviousOrder.apply(menuOrderRequest).doOnError(ex -> log.info("error addToPreviousOrder"))
+        : this.saveMenuOrder(menuOrderMapper.fromRequestToEntity(menuOrderRequest, diningRoomTableId)).doOnError(ex -> log.info("error saveMenuOrder"));
+  }
+
+  private Function<MenuOrderRequest, Mono<MenuOrder>> addToPreviousOrder = menuOrderRequest ->
+      this.findMenuOrderByMenuOptionId(menuOrderRequest.getMenuOptionId())
+          .flatMap(savedMenuOrder -> {
+            Integer actualQuantity = savedMenuOrder.getQuantity() + menuOrderRequest.getQuantity();
+            savedMenuOrder.setQuantity(actualQuantity);
+            return this.saveMenuOrder(savedMenuOrder);
+          });
 
   private Mono<DiningRoomTable> findDiningRoomTableByTableNumber(Integer tableNumber) {
       return tableRepository.findByTableNumber(tableNumber)
@@ -76,6 +105,12 @@ public class DiningRoomOrderServiceImpl implements DiningRoomOrderService {
 
   private Mono<DiningRoomTable> saveDiningRoomTable(DiningRoomTable table) {
     return Mono.just(tableRepository.save(table));
+  }
+
+  private Mono<MenuOrder> findMenuOrderByMenuOptionId(Long menuOptionId) {
+    return menuOrderRepository.findByMenuOptionId(menuOptionId)
+        .map(Mono::just)
+        .orElse(Mono.empty());
   }
 
 }
