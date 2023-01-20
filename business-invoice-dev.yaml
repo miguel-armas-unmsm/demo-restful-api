@@ -1,0 +1,6 @@
+application:
+  http-client:
+    menu-options:
+      base-url: ${BUSINESS_MENU_OPTION_BASE_PATH:http://localhost:8080/bbq/business/v1/}
+    dining-room-order:
+      base-url: ${BUSINESS_DINING_ROOM_ORDER_BASE_PATH:http://localhost:8080/bbq/business/v1/}
