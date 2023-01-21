@@ -33,6 +33,22 @@ spring:
 #          filters:
 #            - name: AuthenticatorFiltering
 
+        - id: business-invoice
+          uri: lb://business-invoice
+          predicates:
+            - Path=/bbq/business/v1/invoices/**
+            - Method=GET,POST,PUT,DELETE, PATCH
+        #          filters:
+        #            - name: AuthenticatorFiltering
+
+        - id: business-payment
+          uri: lb://business-payment
+          predicates:
+            - Path=/bbq/business/v1/payments/**
+            - Method=GET,POST,PUT,DELETE, PATCH
+        #          filters:
+        #            - name: AuthenticatorFiltering
+
         - id: auth-adapter
           uri: lb://auth-adapter
           predicates:
