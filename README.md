@@ -6,14 +6,14 @@
 - [1.3. Config Server](#13-config-server)
 - [1.4. Api Gateway](#14-api-gateway)
 - [1.5. Auth Adapter](#15-auth-adapter)
-- [2. Componentes de soporte](#3-componentes-de-soporte)
-- [2.1. BBQ Parent](#31-bbq-parent)
-- [2.2. BBQ Support](#32-bbq-support)
-- [3. Componentes de negocio](#2-componentes-de-negocio)
-- [3.1. Business API Alternative Menu Option](#21-business-api-alternative-menu-option)
-- [3.2. Business API Dining Room Order](#22-business-api-dining-room-order)
-- [3.3. Business API Invoice](#23-business-api-invoice)
-- [3.4. Business API Payment](#24-business-api-payment)
+- [2. Componentes de soporte](#2-componentes-de-soporte)
+- [2.1. BBQ Parent](#21-bbq-parent)
+- [2.2. BBQ Support](#22-bbq-support)
+- [3. Componentes de negocio](#3-componentes-de-negocio)
+- [3.1. Business API Alternative Menu Option](#31-business-api-alternative-menu-option)
+- [3.2. Business API Dining Room Order](#32-business-api-dining-room-order)
+- [3.3. Business API Invoice](#33-business-api-invoice)
+- [3.4. Business API Payment](#34-business-api-payment)
 
 
 ## 1. Componentes de infraestructura
