@@ -6,14 +6,15 @@
 - [1.3. Config Server](#13-config-server)
 - [1.4. Api Gateway](#14-api-gateway)
 - [1.5. Auth Adapter](#15-auth-adapter)
-- [2. Componentes de negocio](#2-componentes-de-negocio)
-- [2.1. Business API Alternative Menu Option](#21-business-api-alternative-menu-option)
-- [2.2. Business API Dining Room Order](#22-business-api-dining-room-order)
-- [2.3. Business API Invoice](#23-business-api-invoice)
-- [2.4. Business API Payment](#24-business-api-payment)
-- [3. Componentes de soporte](#3-componentes-de-soporte)
-- [3.1. BBQ Parent](#31-bbq-parent)
-- [3.2. BBQ Support](#32-bbq-support)
+- [2. Componentes de soporte](#3-componentes-de-soporte)
+- [2.1. BBQ Parent](#31-bbq-parent)
+- [2.2. BBQ Support](#32-bbq-support)
+- [3. Componentes de negocio](#2-componentes-de-negocio)
+- [3.1. Business API Alternative Menu Option](#21-business-api-alternative-menu-option)
+- [3.2. Business API Dining Room Order](#22-business-api-dining-room-order)
+- [3.3. Business API Invoice](#23-business-api-invoice)
+- [3.4. Business API Payment](#24-business-api-payment)
+
 
 ## 1. Componentes de infraestructura
 
@@ -71,7 +72,19 @@
 > conecte con el proveedor de auntenticación y este último valide el token de acceso. Finalmente, una vez que se haya
 > verificado que el token es válido, el API Gateway redirige la petición al recurso que se esté solicitando.
 
-## 2. Componentes de negocio
+## 2. Componentes de soporte
+### 2.1. BBQ Parent
+> Estructura de módulos que centraliza las propiedades, librerías y plugins para adoptar un estándar en todos los
+> proyectos de BBQ. Los grupos de proyectos en Maven nos permiten tener una estructura de proyectos más coherente y
+> ordenada, que pueden ser heredadas dentro de los proyectos hijos que conforman un grupo de proyectos, evitando así la
+> redundancia.
+>
+> Tutorial de parent modules: `https://www.youtube.com/watch?v=XqC1zeFdxMs&ab_channel=CodeJava`
+
+### 2.2. BBQ Support
+> Proyecto no ejecutable que centraliza las funciones y constantes requeridas por los proyectos de BBQ.
+
+## 3. Componentes de negocio
 ### Consideraciones
 #### Swagger UI
 > Para ver la documentación de los servicios en Swagger UI debe quitar la configuración relacionada al API Gateway. Sin 
@@ -82,7 +95,7 @@
 #### Base de datos en memoria H2
 > Puede acceder a la interfaz a través de: `http://localhost:<service-port>/h2-console/`
 
-### 2.1. Business API Alternative Menu Option
+### 3.1. Business API Alternative Menu Option
 > Gesiona las opciones de menú que ofrece el restaurante.
 
 | Endpoint                                            | Método | Descripción                                                                                       |
@@ -93,10 +106,7 @@
 | `/bbq/business/v1/menu-options/{id}`                | PUT    | Actualiza un registro de opción de menú.                                                          |
 | `/bbq/business/v1/menu-options/{id}`                | DELETE | Elimina un registro de opción de menú.                                                            |
 
-#### Tecnologías de interés
-> - 
-
-### 2.2. Business API Dining Room Order
+### 3.2. Business API Dining Room Order
 > Gesiona las los pedidos que se realizan en el comedor.
 
 | Endpoint                                                        | Método | Descripción                                    |
@@ -104,7 +114,7 @@
 | `/bbq/business/v1/dining-room-orders?tableNumber={tableNumber}` | GET    | Recupera los pedidos de una mesa.              |
 | `/bbq/business/v1/dining-room-orders/{id}`                      | PATCH  | Agrega opciones de menú al pedido de una mesa. |
 
-### 2.3. Business API Invoice
+### 3.3. Business API Invoice
 > Gesiona las facturas asociadas a los pedidos realizados en el comedor.
 
 | Endpoint                                              | Método | Descripción                                         |
@@ -112,25 +122,12 @@
 | `/bbq/business/v1/invoices?tableNumber={tableNumber}` | GET    | Recupera la factura asociada al pedido de una mesa. |
 | `/bbq/business/v1/invoices/send-to-pay`               | POST   | Envía a pagar la factura.                           |
 
-### 2.4. Business API Payment
-> Gesiona las facturas asociadas a los pedidos realizados en el comedor.
+### 3.4. Business API Payment
+> Lista los pagos asociadas a los pedidos realizados en el comedor.
 
-| Endpoint                                              | Método | Descripción                                         |
-|-------------------------------------------------------|--------|-----------------------------------------------------|
-| `/bbq/business/v1/invoices?tableNumber={tableNumber}` | GET    | Recupera la factura asociada al pedido de una mesa. |
-| `/bbq/business/v1/invoices/send-to-pay`               | POST   | Envía a pagar la factura.                           |
-
-## 3. Componentes de soporte
-### 3.1. BBQ Parent
-> Estructura de módulos que centraliza las propiedades, librerías y plugins para adoptar un estándar en todos los
-> proyectos de BBQ. Los grupos de proyectos en Maven nos permiten tener una estructura de proyectos más coherente y
-> ordenada, que pueden ser heredadas dentro de los proyectos hijos que conforman un grupo de proyectos, evitando así la
-> redundancia.
-> 
-> Tutorial de parent modules: `https://www.youtube.com/watch?v=XqC1zeFdxMs&ab_channel=CodeJava`
-
-### 3.2. BBQ Support
-> Proyecto no ejecutable que centraliza las funciones y constantes requeridas por los proyectos de BBQ.
+| Endpoint                      | Método | Descripción              |
+|-------------------------------|--------|--------------------------|
+| `/bbq/business/v1/payments`   | GET    | Recupera todos los pagos | 
 
 ## 4. Despliegue local
 > 1. Desplegar registry-discovery-server, config-server y api-gateway
