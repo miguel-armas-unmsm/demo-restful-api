@@ -68,7 +68,8 @@ public class MenuOptionController {
   public ResponseEntity<Void> update(HttpServletRequest servletRequest,
                                      @Valid @RequestBody MenuOptionRequest menuOption, @PathVariable("id") Long id) {
     logRequest.accept(servletRequest);
-    return ResponseEntity.created(buildPutUriLocation.apply(id)).build();
+    Long updatedMenuOptionId = service.update(id, menuOption);
+    return ResponseEntity.created(buildPutUriLocation.apply(updatedMenuOptionId)).build();
   }
 
   @DeleteMapping(value = "/{id}")
