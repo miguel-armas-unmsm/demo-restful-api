@@ -64,6 +64,12 @@
       <artifactId>quarkus-jdbc-mysql</artifactId>
     </dependency>
 
+    <!-- graphql-->
+    <dependency>
+      <groupId>io.quarkus</groupId>
+      <artifactId>quarkus-smallrye-graphql</artifactId>
+    </dependency>
+
     <!-- dependency injection -->
     <dependency>
       <groupId>io.quarkus</groupId>
